@@ -15,7 +15,7 @@ const Tasks:FC<{tasks:TaskType[]}> = observer(({tasks}) => {
     return <>
         <h1 className='font-sans text-2xl font-bold pb-4'>Задачи</h1>
         {tasks.map((el, i) =>
-            <ToDoCard key={el.id} id={el.id} name={el.name} checked={el.checked} />
+            <ToDoCard key={el.id} id={el.id} name={el.name} checked={el.checked} priority={el.priority} />
         )}
     </>
 })
