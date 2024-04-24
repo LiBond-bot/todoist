@@ -10,6 +10,7 @@ export const ToDoCard:FC<{
     id: string,
     checked: boolean
 }> = observer(({ name, id, checked }) => {
+    
     const { DeleteTask, CheckedTask, EditTask } = TaskStore;
 
     const TrackingValue = (event: any) =>  {
@@ -34,7 +35,16 @@ export const ToDoCard:FC<{
                 <div className='flex flex-row justify-between items-center'>
                     <div className='flex flex-row'>
                         <input type="checkbox" name="checkbox-1" className="w-5 mr-6 cursor-pointer" onClick={onChecked} />
-                        <input type="text" className="focus-visible:outline-none" value={name} onChange={TrackingValue} />
+                        <input 
+                            type="text"
+                            className={classNames(
+                                'focus-visible:outline-none', {
+                                    'line-through': checked == true,
+                                }
+                            )}
+                            value={name}
+                            onChange={TrackingValue}
+                        />
                     </div>
                     <div>
                         <div className="cursor-pointer text-2xl p-1.5 rounded-md hover:bg-indigo-50" onClick={onDelete}><RiDeleteBin6Line /></div>
