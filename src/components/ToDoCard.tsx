@@ -10,7 +10,7 @@ export const ToDoCard:FC<{
     name: string,
     id: string,
     checked: boolean,
-    priority: string
+    priority: number
 }> = observer(({ name, id, checked, priority }) => {
     
     const { DeleteTask, CheckedTask, EditTask } = TaskStore;
@@ -55,25 +55,25 @@ export const ToDoCard:FC<{
                     <div className='flex flex-row items-center'>
                         <div className={classNames(
                             'flex flex-row items-center mr-4 px-2 py-1 rounded-xl', {
-                                'bg-green-50': priority == 'low',
-                                'bg-yellow-50': priority == 'middle',
-                                'bg-red-50': priority == 'high',
+                                'bg-green-50': priority == 0,
+                                'bg-yellow-50': priority == 1,
+                                'bg-red-50': priority == 2,
                             }
                         )}>
                             <div className={classNames(
                                 'text-lg mr-2', {
-                                    'text-green-600': priority == 'low',
-                                    'text-amber-600': priority == 'middle',
-                                    'text-red-600': priority == 'high',
+                                    'text-green-600': priority == 0,
+                                    'text-amber-600': priority == 1,
+                                    'text-red-600': priority == 2,
                                 }
                             )}>
                                 <FaFlag />
                             </div>
                             <div>
                                 <div className='text-xs'>Приоритет</div>
-                                {priority == 'low' && <div className='text-sm font-bold'>Низкий</div>}
-                                {priority == 'middle' && <div className='text-sm font-bold'>Средний</div>}
-                                {priority == 'high' && <div className='text-sm font-bold'>Высокий</div>}
+                                {priority == 0 && <div className='text-sm font-bold'>Низкий</div>}
+                                {priority == 1 && <div className='text-sm font-bold'>Средний</div>}
+                                {priority == 2 && <div className='text-sm font-bold'>Высокий</div>}
                             </div>
                         </div>
                         <div className="cursor-pointer text-2xl p-1.5 rounded-md hover:bg-indigo-50" onClick={onDelete}><RiDeleteBin6Line /></div>
