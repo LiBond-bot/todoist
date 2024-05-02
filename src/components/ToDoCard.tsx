@@ -9,11 +9,14 @@ import classNames from 'classnames';
 export const ToDoCard:FC<{
     name: string,
     id: string,
-    checked: boolean,
-    priority: number
-}> = observer(({ name, id, checked, priority }) => {
+    checked_task: boolean,
+    priority: number,
+    date:any,
+}> = observer(({ name, id, checked_task, priority, date }) => {
     
     const { DeleteTask, CheckedTask, EditTask } = TaskStore;
+
+    const createDate = new Date(date);
 
     const TrackingValue = (event: any) =>  {
         EditTask(id, event.target.value )
@@ -31,7 +34,7 @@ export const ToDoCard:FC<{
         <>
             <div className={classNames(
                 'shadow-xl p-6 rounded-lg mb-6', {
-                    'opacity-50': checked == true,
+                    'opacity-50': checked_task == true,
                     // 'bg-green-50': priority == 'low',
                     // 'bg-yellow-50': priority == 'middle',
                     // 'bg-red-50': priority == 'high',
@@ -39,18 +42,22 @@ export const ToDoCard:FC<{
             )}>
                 <div className='flex flex-row justify-between items-center'>
                     <div className='flex flex-row'>
-                        <input type="checkbox" name="checkbox-1" className="w-5 mr-6 cursor-pointer" onClick={onChecked} />
+                        <input type="checkbox" name="checkbox-1" className="w-5 mr-6 cursor-pointer" checked={checked_task ? true : false} onClick={onChecked} />
                        
-                        <input 
-                            type="text"
-                            className={classNames(
-                                'focus-visible:outline-none bg-transparent', {
-                                    'line-through': checked == true,
-                                }
-                            )}
-                            value={name}
-                            onChange={TrackingValue}
-                        />
+                        <div>
+                            <input 
+                                type="text"
+                                className={classNames(
+                                    'focus-visible:outline-none bg-transparent', {
+                                        'line-through': checked_task == true,
+                                    }
+                                )}
+                                value={name}
+                                onChange={TrackingValue}
+                            />
+                            <div>Дата создания: {createDate.getDate() + '.' + createDate.getMonth()  + '.' +  createDate.getFullYear() + ' ' + createDate.getHours() + ':' + createDate.getMinutes()}</div>
+                        </div>
+
                     </div>
                     <div className='flex flex-row items-center'>
                         <div className={classNames(

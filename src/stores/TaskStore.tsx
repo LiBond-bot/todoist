@@ -1,17 +1,7 @@
 import { makeAutoObservable, observe, reaction } from "mobx";
 import { v4 as uuidv4 } from "uuid"
 
-export type FiledType = "priority"
-export type OrderType = "ASC" | "DESC"
-
-export type TaskType = { 
-    id: string;
-    name: string,
-    createDate:any,
-    priority: number,
-    editor: boolean,
-    checked: boolean 
-}
+import { TaskType, OrderType, FiledType } from '../types';
 
 class TaskStore {
     private storage_name = "tasks"
@@ -32,20 +22,20 @@ class TaskStore {
     tasks: TaskType[] = [];
     tasks_filter: TaskType[] = []
     tasks_output: TaskType[] = []
-    activeSort: boolean = false;
 
     filter: {
         search: string,
         sort: {
             field?: FiledType,
-            order?: OrderType
+            order?: OrderType,
         }
     } = {
         search: "",
         sort: {}
     }
 
-    private search_handelr = (tasks:TaskType[]) => {
+    search_handelr = (tasks:TaskType[]) => {
+        
         if (this.filter.search) {
             return tasks.filter((task) => task.name.indexOf(this.filter.search) >= 0)
         } else {
@@ -53,14 +43,60 @@ class TaskStore {
         }
     }
 
-    private sort_handelr = (tasks:TaskType[]) => {
-        // TODO: Сделать сортировку для задач
-        return tasks
+    sort_handelr = (tasks:TaskType[]) => {
+
+        if (this.filter.sort.field) {
+
+            let sort = tasks.concat();
+
+            // Сортировка по приоритету
+            if(this.filter.sort.field == 'priority') {
+
+                // По убыванию
+                if(this.filter.sort.order == 'DESC'){ return sort.sort((a, b) => (a.priority > b.priority ? -1 : 1)); }
+
+                // По возрастанию
+                if(this.filter.sort.order == 'ASC'){ return sort.sort((a, b) => (a.priority < b.priority ? -1 : 1)); }
+            }
+
+            // Сортировка по дате создания
+            if(this.filter.sort.field == 'date') {
+
+                // От новой к старой
+                if(this.filter.sort.order == 'ASC'){ 
+                    return sort.sort((a,b) => {
+                            let c:any = new Date(a.createDate);
+                            let d:any = new Date(b.createDate);
+                            
+                            return c.getTime()-d.getTime();
+                        }
+                    );
+                }
+
+                // старой к новой
+                if(this.filter.sort.order == 'DESC'){ 
+                    return sort.sort((a,b) =>
+                        {
+                            let c:any = new Date(a.createDate);
+                            let d:any = new Date(b.createDate);
+                            
+                            return d.getTime() - c.getTime();
+                        }
+                    );
+                }
+            }
+            
+            return tasks;
+
+        } else {
+            return tasks
+        }
+
     }
 
-    private filter_handler = (tasks:TaskType[]) => {
-        if(this.filter.search)  tasks = this.search_handelr(tasks)
-        if(this.filter.sort.field)  tasks = this.sort_handelr(tasks)
+    filter_handler = (tasks:TaskType[]) => {
+        if(this.filter.search) tasks = this.search_handelr(tasks)
+        if(this.filter.sort.field) tasks = this.sort_handelr(tasks)
         return tasks
     }
 
@@ -78,85 +114,72 @@ class TaskStore {
         })
 
         // Реакция на изменения
-        reaction(() => ({tasks: this.tasks, search: this.filter.search, sort: this.filter.sort}), ({tasks}) => {
-            this.tasks_filter = this.filter_handler(tasks)
-            this.tasks_output = this.tasks_filter
-            this.setTasks()
-        })
+        reaction(() => (
+            {
+                tasks: this.tasks,
+                search: this.filter.search,
+                sort_field: this.filter.sort.field,
+                sort_order: this.filter.sort.order
+            }), 
+            ({tasks}) => {
+                this.tasks_filter = this.filter_handler(tasks)
+                this.tasks_output = this.tasks_filter
+                this.setTasks()
+            }
+        )
     }
     
+    // Создание задачи
     CreateTask = (name: TaskType["name"], priority:TaskType["priority"]) => {
-        
         priority = Number(priority)
         const createDate = new Date();
 
         this.tasks = [...this.tasks, { 'id': uuidv4(), 'name': name, createDate: createDate, 'priority': priority, editor: false, checked: false }]
-  
     }
 
+    // Удаление задачи
     DeleteTask = (id: TaskType["id"]) => {
         this.tasks = this.tasks.filter((task) => {
             return task.id !== id
         })
-
-
     }
 
+    // Отметка о выполнении задачи
     CheckedTask = (id: TaskType["id"]) => {
         const index = this.tasks.findIndex((task) => task.id == id)
         if (index !== -1) {
             this.tasks[index].checked = !this.tasks[index].checked;
+            this.setTasks()
         }
-
 
     }
 
+    // Редактирование задачи
     EditTask = (id: TaskType["id"], name: TaskType["name"]) => {
         const index = this.tasks.findIndex((task) => task.id == id)
         if (index !== -1) {
             this.tasks[index].name = name;
+            this.setTasks()
         }
-        
-   
     }
 
-    setSort = (field:FiledType,value?: OrderType) => {
-        if (['priority'].includes(field)) {
+    // Устанавливаем значение сортировки. Если есть сортировка, то срабатывает фунция прослушки
+    setSort = (field:FiledType, value?: OrderType) => {
+        if (!['none'].includes(field)) {
             this.filter.sort.field = field
             this.filter.sort.order = this.filter.sort.order === "ASC" ?  "DESC" : "ASC" 
+        } else {
+            this.filter.sort.field = undefined;
         }
-
-    
     }
 
+    // Устанавливаем поиск. Если поиск не пустой, то срабатывает функция прослушки
     setSearch = (value?: string) => {
         if(typeof value === "string") {
             this.filter.search = value
         }
-
-     
     }
 
-
-    // // Сортировка задач
-    // SortTasks = () => {
-        
-    //     if(!tasks.length) {tasks = this.tasks.concat();}
-
-    //     if(this.SortParam == 'default'){
-    //         tasks = this.tasks.concat();
-    //         this.activeSort = false;
-    //     }
-
-    //     if(this.SortParam == 'priority'){
-    //         this.activeSort = true;
-
-    //         if(this.TypeSort == 'des' || this.TypeSort == ''){tasks = tasks.sort((a, b) => (a.priority > b.priority ? -1 : 1));}
-    //         if(this.TypeSort == 'asc'){tasks = tasks.sort((a, b) => (a.priority < b.priority ? -1 : 1));}
-
-    //     }
-    // }
-    
 }
 
 export default new TaskStore({});
