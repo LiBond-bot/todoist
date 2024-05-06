@@ -1,13 +1,13 @@
 import React from 'react';
 
-// Стили
+// Styles
 import '../shared/assets/css/App.css';
 
 // Store
 import TaskStore from 'entities/Task/model/TaskStore'
 import {StoreContext} from 'entities/Task/model/context';
 
-// Страницы
+// Pages
 import { MainPage } from '../pages/main';
 
 function App() {

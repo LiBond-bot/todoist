@@ -1,7 +1,7 @@
 import React, {  FC } from 'react';
+// Store
 import { observer } from "mobx-react-lite"
-import TaskStore from '../../../entities/Task/model/TaskStore';
-import classNames from 'classnames';
+// components
 import { InputText } from '../../../shared/ui/inputText';
 
 export const SearchTasks:FC<{
@@ -13,6 +13,5 @@ export const SearchTasks:FC<{
                 <InputText name="search" placeholder="Поиск задачи" onChange={onSearch}/>
             </div>
         </>
-
     );
 })

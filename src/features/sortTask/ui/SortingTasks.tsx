@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-// Типизация
+// Types
 import { FiledType } from '../../../shared/type/types';
 
 // Store

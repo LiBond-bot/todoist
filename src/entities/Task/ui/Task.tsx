@@ -1,13 +1,10 @@
 import React, { FC } from 'react';
+
+// Store
 import { observer } from "mobx-react-lite"
 import { useStore } from 'entities/Task/model/context';
 
-
-import TaskStore from '../model/TaskStore';
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaFlag } from "react-icons/fa6";
-import { toJS } from 'mobx';
-import classNames from 'classnames';
+// Ui
 import { TaskTemplateCard } from './TaskTemplateCard';
 import { TaskTemplateLine } from './TaskTemplateLine';
 

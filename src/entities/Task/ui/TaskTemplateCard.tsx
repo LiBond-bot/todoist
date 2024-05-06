@@ -33,7 +33,9 @@ export const TaskTemplateCard:FC<{
                 <div className='flex flex-col '>
 
                     <div className='flex flex-column mb-3 justify-between'>
+                        
                         <input type="checkbox" name="checkbox-1" className="w-5 cursor-pointer" checked={checked_task ? true : false} onClick={onChecked} />
+                        
                         <div className='flex font-bold'>
                             <input 
                                 type="text"
@@ -48,8 +50,10 @@ export const TaskTemplateCard:FC<{
                         </div>
 
                         <div className="cursor-pointer text-2xl p-1.5 rounded-md hover:bg-indigo-50" onClick={onDelete}><RiDeleteBin6Line /></div>
+
                     </div>
                     <div className='flex items-center justify-between'>
+
                         <div className='text-sm'>Создана: {conv_date}</div>
 
                         <div className='flex flex-row items-center ml-4'>

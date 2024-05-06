@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 
-// Типизация
+// Types
 import { TaskType, TaskTemplate} from '../../../shared/type/types';
 
-// Mobx
+// Store
 import { observer } from "mobx-react-lite"
 import { useStore } from 'entities/Task/model/context';
 
-// Картинки
+// Images
 import notaskImg from '../../../shared/assets/img/notask.png'
 import searchImg from '../../../shared/assets/img/search.png'
 
-// Компоненты
+// Ui
 import { Title } from '../../../shared/ui/title';
 import { Plug } from '../../../shared/ui/plug';
 import { Task } from '../../../entities/Task/ui/Task';
@@ -22,9 +22,11 @@ import { ChangeViewTask } from '../../../features/changeViewTask';
 
 
 const Tasks:FC<{
+    
     tasks:TaskType[],
     onSearch(e:React.ChangeEvent<HTMLInputElement>):void,
     tasks_template:TaskTemplate
+
 }> = observer(({tasks, onSearch, tasks_template}) => {
     return <>
 
