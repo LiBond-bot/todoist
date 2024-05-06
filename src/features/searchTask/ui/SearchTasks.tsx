@@ -1,7 +1,8 @@
 import React, {  FC } from 'react';
 import { observer } from "mobx-react-lite"
-import TaskStore from '../stores/TaskStore';
+import TaskStore from '../../../entities/Task/model/TaskStore';
 import classNames from 'classnames';
+import { InputText } from '../../../shared/ui/inputText';
 
 export const SearchTasks:FC<{
     onSearch(e:React.ChangeEvent<HTMLInputElement>): void
@@ -9,7 +10,7 @@ export const SearchTasks:FC<{
     return (
         <>
             <div>
-                <input className="shadow-xl px-4 py-4 bg-white placeholder-slate-400 focus:outline-none focus:border-indigo-800 focus:ring-indigo-800 block rounded-md sm:text-sm focus:ring-2" type="text" placeholder="Поиск задачи" onChange={(e) => onSearch(e) }/>
+                <InputText name="search" placeholder="Поиск задачи" onChange={onSearch}/>
             </div>
         </>
 

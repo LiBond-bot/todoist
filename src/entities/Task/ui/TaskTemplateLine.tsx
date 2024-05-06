@@ -1,43 +1,32 @@
 import React, { FC } from 'react';
-import { observer } from "mobx-react-lite"
-import TaskStore from '../stores/TaskStore';
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaFlag } from "react-icons/fa6";
-import { toJS } from 'mobx';
 import classNames from 'classnames';
 
-export const ToDoCard:FC<{
+// Icons
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaFlag } from "react-icons/fa6";
+
+// helpers
+import {dateConversion} from 'shared/helpers/dateConversion'
+
+
+export const TaskTemplateLine:FC<{
     name: string,
-    id: string,
     checked_task: boolean,
     priority: number,
     date:any,
-}> = observer(({ name, id, checked_task, priority, date }) => {
-    
-    const { DeleteTask, CheckedTask, EditTask } = TaskStore;
+    TrackingValue: any
+    onChecked: any
+    onDelete: any
 
-    const createDate = new Date(date);
+}> = ({ name, checked_task, priority, date, TrackingValue, onChecked, onDelete }) => {
 
-    const TrackingValue = (event: any) =>  {
-        EditTask(id, event.target.value )
-    }
-
-    const onDelete = (event: any) =>  {
-        DeleteTask(id)
-    }
-
-    const onChecked = () => {
-        CheckedTask(id)
-    }
+    const conv_date = dateConversion(date);
 
     return (
         <>
             <div className={classNames(
                 'shadow-xl p-6 rounded-lg mb-6', {
                     'opacity-50': checked_task == true,
-                    // 'bg-green-50': priority == 'low',
-                    // 'bg-yellow-50': priority == 'middle',
-                    // 'bg-red-50': priority == 'high',
                 }
             )}>
                 <div className='flex flex-row justify-between items-center'>
@@ -55,7 +44,7 @@ export const ToDoCard:FC<{
                                 value={name}
                                 onChange={TrackingValue}
                             />
-                            <div>Дата создания: {createDate.getDate() + '.' + createDate.getMonth()  + '.' +  createDate.getFullYear() + ' ' + createDate.getHours() + ':' + createDate.getMinutes()}</div>
+                            <div>Создана: {conv_date}</div>
                         </div>
 
                     </div>
@@ -90,4 +79,4 @@ export const ToDoCard:FC<{
         </>
 
     );
-})
+}

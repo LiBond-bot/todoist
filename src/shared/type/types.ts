@@ -1,5 +1,6 @@
 export type FiledType = "none" | "priority" | "date" 
 export type OrderType = "ASC" | "DESC"
+export type TaskTemplate = "line" | "card"
 
 export type TaskType = { 
     id: string;

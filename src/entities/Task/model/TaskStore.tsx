@@ -1,7 +1,7 @@
 import { makeAutoObservable, observe, reaction } from "mobx";
 import { v4 as uuidv4 } from "uuid"
 
-import { TaskType, OrderType, FiledType } from '../types';
+import { TaskType, OrderType, FiledType, TaskTemplate } from '../../../shared/type/types';
 
 class TaskStore {
     private storage_name = "tasks"
@@ -22,6 +22,7 @@ class TaskStore {
     tasks: TaskType[] = [];
     tasks_filter: TaskType[] = []
     tasks_output: TaskType[] = []
+    tasks_template: TaskTemplate = 'line'
 
     filter: {
         search: string,
@@ -34,7 +35,7 @@ class TaskStore {
         sort: {}
     }
 
-    search_handelr = (tasks:TaskType[]) => {
+    private search_handelr = (tasks:TaskType[]) => {
         
         if (this.filter.search) {
             return tasks.filter((task) => task.name.indexOf(this.filter.search) >= 0)
@@ -43,7 +44,7 @@ class TaskStore {
         }
     }
 
-    sort_handelr = (tasks:TaskType[]) => {
+    private sort_handelr = (tasks:TaskType[]) => {
 
         if (this.filter.sort.field) {
 
@@ -94,7 +95,7 @@ class TaskStore {
 
     }
 
-    filter_handler = (tasks:TaskType[]) => {
+    private filter_handler = (tasks:TaskType[]) => {
         if(this.filter.search) tasks = this.search_handelr(tasks)
         if(this.filter.sort.field) tasks = this.sort_handelr(tasks)
         return tasks
@@ -180,6 +181,11 @@ class TaskStore {
         }
     }
 
+    setTasksTemplate = (value?: TaskTemplate) => {
+        if(typeof value === "string") {
+            this.tasks_template = value
+        }
+    }
 }
 
 export default new TaskStore({});

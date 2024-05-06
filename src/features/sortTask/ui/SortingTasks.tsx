@@ -1,25 +1,29 @@
 import React, { FC } from 'react';
 
 // Типизация
-import { FiledType } from '../types';
+import { FiledType } from '../../../shared/type/types';
 
-// MOBX
+// Store
 import { observer } from "mobx-react-lite"
-import TaskStore from '../stores/TaskStore';
+import { useStore } from 'entities/Task/model/context';
 
-const OrderIcon = ({order}:{order?:"ASC" |"DESC"}) => {
-    return <>{order === "ASC" ? "UP" : "DOWN"}</> 
+// Icons
+import { FaSortAmountUp } from "react-icons/fa";
+import { FaSortAmountDownAlt } from "react-icons/fa";
+
+const OrderIcon = ( {order}:{order?:"ASC" |"DESC"} ) => {
+    return <>{order === "ASC" ? <FaSortAmountDownAlt/> : <FaSortAmountUp/>}</> 
 }
 
 export const SortingTasks:FC<{
 }> = observer(() => {
 
-    const { filter, setSort } = TaskStore;
+    const TaskStore = useStore();
 
-    const {field, order} = filter.sort;
+    const {field, order} = TaskStore.filter.sort;
 
     const changeSort = (fieldSort: FiledType): void  => {
-        if(fieldSort) { setSort(fieldSort)}
+        if(fieldSort) { TaskStore.setSort(fieldSort)}
     } 
 
     return (
