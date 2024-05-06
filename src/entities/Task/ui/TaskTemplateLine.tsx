@@ -3,10 +3,12 @@ import classNames from 'classnames';
 
 // Icons
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaFlag } from "react-icons/fa6";
 
 // helpers
 import {dateConversion} from 'shared/helpers/dateConversion'
+
+// Ui
+import { TaskPriority } from './TaskPriority';
 
 
 export const TaskTemplateLine:FC<{
@@ -49,29 +51,14 @@ export const TaskTemplateLine:FC<{
 
                     </div>
                     <div className='flex flex-row items-center'>
-                        <div className={classNames(
-                            'flex flex-row items-center mr-4 px-2 py-1 rounded-xl', {
-                                'bg-green-50': priority == 0,
-                                'bg-yellow-50': priority == 1,
-                                'bg-red-50': priority == 2,
-                            }
-                        )}>
-                            <div className={classNames(
-                                'text-lg mr-2', {
-                                    'text-green-600': priority == 0,
-                                    'text-amber-600': priority == 1,
-                                    'text-red-600': priority == 2,
-                                }
-                            )}>
-                                <FaFlag />
-                            </div>
-                            <div>
-                                <div className='text-xs'>Приоритет</div>
-                                {priority == 0 && <div className='text-sm font-bold'>Низкий</div>}
-                                {priority == 1 && <div className='text-sm font-bold'>Средний</div>}
-                                {priority == 2 && <div className='text-sm font-bold'>Высокий</div>}
-                            </div>
+                        
+                        <div className='mr-4'>
+                            <TaskPriority
+                                priority={priority}
+                                activeNamePriority={true}
+                            />
                         </div>
+
                         <div className="cursor-pointer text-2xl p-1.5 rounded-md hover:bg-indigo-50" onClick={onDelete}><RiDeleteBin6Line /></div>
                     </div>
                 </div>

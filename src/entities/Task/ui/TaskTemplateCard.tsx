@@ -3,10 +3,12 @@ import classNames from 'classnames';
 
 // Icons
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaFlag } from "react-icons/fa6";
 
 // helpers
 import {dateConversion} from 'shared/helpers/dateConversion'
+
+// Ui
+import { TaskPriority } from './TaskPriority';
 
 export const TaskTemplateCard:FC<{
     name: string,
@@ -49,30 +51,14 @@ export const TaskTemplateCard:FC<{
                     </div>
                     <div className='flex items-center justify-between'>
                         <div className='text-sm'>Создана: {conv_date}</div>
+
                         <div className='flex flex-row items-center ml-4'>
-                            <div className={classNames(
-                                'flex flex-row items-center px-2 py-1 rounded-xl', {
-                                    'bg-green-50': priority == 0,
-                                    'bg-yellow-50': priority == 1,
-                                    'bg-red-50': priority == 2,
-                                }
-                            )}>
-                                <div className={classNames(
-                                    'text-lg mr-2', {
-                                        'text-green-600': priority == 0,
-                                        'text-amber-600': priority == 1,
-                                        'text-red-600': priority == 2,
-                                    }
-                                )}>
-                                    <FaFlag />
-                                </div>
-                                <div>
-                                    {priority == 0 && <div className='text-sm font-bold'>Низкий</div>}
-                                    {priority == 1 && <div className='text-sm font-bold'>Средний</div>}
-                                    {priority == 2 && <div className='text-sm font-bold'>Высокий</div>}
-                                </div>
-                            </div>
+                            <TaskPriority
+                                priority={priority}
+                                activeNamePriority={false}
+                            />
                         </div>
+
                     </div>
                 </div>
             </div>
