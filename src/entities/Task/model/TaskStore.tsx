@@ -1,7 +1,7 @@
 import { makeAutoObservable, observe, reaction } from "mobx";
 import { v4 as uuidv4 } from "uuid"
 
-import { TaskType, OrderType, FiledType, TaskTemplate } from '../../../shared/type/types';
+import { TaskType, OrderType, FiledType, TaskTemplate, TaskQuantityCards } from '../../../shared/type/types';
 
 class TaskStore {
     private storage_name = "tasks"
@@ -22,8 +22,9 @@ class TaskStore {
     tasks: TaskType[] = [];
     tasks_filter: TaskType[] = []
     tasks_output: TaskType[] = []
-    tasks_template: TaskTemplate = 'line'
+   
 
+    // Фильтры
     filter: {
         search: string,
         sort: {
@@ -33,6 +34,15 @@ class TaskStore {
     } = {
         search: "",
         sort: {}
+    }
+
+    // Отображение карточек задач
+    tasks_view: {
+        tasks_template: TaskTemplate,
+        tasks_cards_quan: TaskQuantityCards,
+    } = {
+        tasks_template: 'line',
+        tasks_cards_quan: "3-cards",
     }
 
     private search_handelr = (tasks:TaskType[]) => {
@@ -183,7 +193,13 @@ class TaskStore {
 
     setTasksTemplate = (value?: TaskTemplate) => {
         if(typeof value === "string") {
-            this.tasks_template = value
+            this.tasks_view.tasks_template = value
+        }
+    }
+
+    setQuantityCards = (value?: TaskQuantityCards) => {
+        if(typeof value === "string") {
+            this.tasks_view.tasks_cards_quan = value
         }
     }
 }

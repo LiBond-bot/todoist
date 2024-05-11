@@ -33,7 +33,7 @@ export const Task:FC<{
 
     return (
         <>
-            {TaskStore.tasks_template == 'line' && 
+            {TaskStore.tasks_view.tasks_template == 'line' && 
                <TaskTemplateLine
                     name={name}
                     checked_task={checked_task}
@@ -44,7 +44,7 @@ export const Task:FC<{
                     onDelete={onDelete}
                 />
             }
-            {TaskStore.tasks_template == 'card' && 
+            {TaskStore.tasks_view.tasks_template == 'card' && 
                 <TaskTemplateCard 
                     name={name}
                     checked_task={checked_task}

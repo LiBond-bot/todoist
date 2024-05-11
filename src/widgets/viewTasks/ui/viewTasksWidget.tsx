@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import classNames from 'classnames';
 
 // Types
-import { TaskType, TaskTemplate} from '../../../shared/type/types';
+import { TaskType, TaskTemplate, TaskQuantityCards} from '../../../shared/type/types';
 
 // Store
 import { observer } from "mobx-react-lite"
@@ -25,9 +25,10 @@ const Tasks:FC<{
     
     tasks:TaskType[],
     onSearch(e:React.ChangeEvent<HTMLInputElement>):void,
-    tasks_template:TaskTemplate
+    tasks_template:TaskTemplate,
+    task_quantity:TaskQuantityCards
 
-}> = observer(({tasks, onSearch, tasks_template}) => {
+}> = observer(({tasks, onSearch, tasks_template, task_quantity}) => {
     return <>
 
         {/* Заголовок */}
@@ -48,7 +49,10 @@ const Tasks:FC<{
        {tasks.length ? 
             <div className={classNames(
                 'mt-6', {
-                    'grid grid-cols-4 gap-x-6': tasks_template == 'card',
+                    'grid gap-x-6': tasks_template == 'card',
+                    'grid-cols-3': tasks_template == 'card' && task_quantity == '3-cards',
+                    'grid-cols-4': tasks_template == 'card' && task_quantity == '4-cards',
+                    'grid-cols-5': tasks_template == 'card' && task_quantity == '5-cards',
                 }
             )}>
                 {tasks.map((el, i) =>
@@ -62,7 +66,7 @@ const Tasks:FC<{
 
 export const ViewTasksWidget = observer(() => {
 
-    const TaskStore = useStore();
+    const TaskStore = useStore()
 
     return TaskStore.tasks.length ? 
         <Tasks 
@@ -70,7 +74,8 @@ export const ViewTasksWidget = observer(() => {
                 TaskStore.setSearch(e.target.value)
             }} 
             tasks={TaskStore.tasks_output}
-            tasks_template={TaskStore.tasks_template}
+            tasks_template={TaskStore.tasks_view.tasks_template}
+            task_quantity={TaskStore.tasks_view.tasks_cards_quan}
         /> 
     : 
     <Plug text='Список задач пустой, время выпить кофе!' img={notaskImg}/>

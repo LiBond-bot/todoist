@@ -30,7 +30,7 @@ export const TaskTemplateCard:FC<{
                     'opacity-50': checked_task == true,
                 }
             )}>
-                <div className='flex flex-col '>
+                <div className='flex flex-col'>
 
                     <div className='flex flex-column mb-3 justify-between'>
                         
