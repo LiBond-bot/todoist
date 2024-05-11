@@ -56,7 +56,15 @@ const Tasks:FC<{
                 }
             )}>
                 {tasks.map((el, i) =>
-                    <Task key={el.id} id={el.id} name={el.name} checked_task={el.checked} priority={el.priority} date={el.createDate} />
+                    <Task
+                        key={el.id}
+                        id={el.id}
+                        name={el.name}
+                        checked_task={el.checked}
+                        priority={el.priority}
+                        createDate={el.createDate} 
+                        finishDate={el.finishedDate}
+                    />
                 )}
             </div> 
             : <Plug text='Не найдено ни одной задачи' img={searchImg}/> 

@@ -144,8 +144,18 @@ class TaskStore {
     CreateTask = (name: TaskType["name"], priority:TaskType["priority"]) => {
         priority = Number(priority)
         const createDate = new Date();
+        const task = { 
+            'id': uuidv4(),
+            'name': name,
+            'createDate': createDate,
+            'lastEditDate': false,
+            'finishedDate': false,
+            'priority': priority,
+            'editor': false,
+            'checked': false
+        }
 
-        this.tasks = [...this.tasks, { 'id': uuidv4(), 'name': name, createDate: createDate, 'priority': priority, editor: false, checked: false }]
+        this.tasks = [...this.tasks, task]
     }
 
     // Удаление задачи
@@ -159,10 +169,14 @@ class TaskStore {
     CheckedTask = (id: TaskType["id"]) => {
         const index = this.tasks.findIndex((task) => task.id == id)
         if (index !== -1) {
+            const finishDate = new Date();
+            
             this.tasks[index].checked = !this.tasks[index].checked;
+
+            if(this.tasks[index].checked == false) {this.tasks[index].finishedDate = false} else {this.tasks[index].finishedDate = finishDate}
+            
             this.setTasks()
         }
-
     }
 
     // Редактирование задачи

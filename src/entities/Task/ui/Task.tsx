@@ -13,9 +13,10 @@ export const Task:FC<{
     id: string,
     checked_task: boolean,
     priority: number,
-    date:any,
+    createDate:any,
+    finishDate:any
 
-}> = observer(({ name, id, checked_task, priority, date }) => {
+}> = observer(({ name, id, checked_task, priority, createDate, finishDate }) => {
 
     const TaskStore = useStore();
 
@@ -38,7 +39,8 @@ export const Task:FC<{
                     name={name}
                     checked_task={checked_task}
                     priority={priority}
-                    date={date}
+                    createDate={createDate}
+                    finishDate={finishDate}
                     TrackingValue={TrackingValue}
                     onChecked={onChecked}
                     onDelete={onDelete}
@@ -49,7 +51,8 @@ export const Task:FC<{
                     name={name}
                     checked_task={checked_task}
                     priority={priority}
-                    date={date}
+                    createDate={createDate}
+                    finishDate={finishDate}
                     TrackingValue={TrackingValue}
                     onChecked={onChecked}
                     onDelete={onDelete}

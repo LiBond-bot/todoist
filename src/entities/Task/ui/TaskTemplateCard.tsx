@@ -14,14 +14,18 @@ export const TaskTemplateCard:FC<{
     name: string,
     checked_task: boolean,
     priority: number,
-    date:any,
+    createDate:any,
+    finishDate:any,
     TrackingValue: any
     onChecked: any
     onDelete: any
 
-}> = ({ name, checked_task, priority, date, TrackingValue, onChecked, onDelete }) => {
+}> = ({ name, checked_task, priority, createDate, finishDate, TrackingValue, onChecked, onDelete }) => {
 
-    const conv_date = dateConversion(date);
+    const createDateConvert = dateConversion(createDate);
+
+    let finishedDateConvert;
+    if(finishDate){ finishedDateConvert = dateConversion(finishDate)}
 
     return (
         <>
@@ -54,7 +58,9 @@ export const TaskTemplateCard:FC<{
                     </div>
                     <div className='flex items-center justify-between'>
 
-                        <div className='text-sm'>Создана: {conv_date}</div>
+                        <div className='text-sm'>Создана: {createDateConvert}</div>
+
+                        {finishDate && <div className='text-sm'>Завершена: {finishedDateConvert}</div>}
 
                         <div className='flex flex-row items-center ml-4'>
                             <TaskPriority

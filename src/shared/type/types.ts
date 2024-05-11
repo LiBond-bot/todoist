@@ -7,6 +7,8 @@ export type TaskType = {
     id: string;
     name: string,
     createDate:any,
+    lastEditDate:any,
+    finishedDate:any,
     priority: number,
     editor: boolean,
     checked: boolean 
