@@ -22,7 +22,6 @@ import { ChangeViewTask } from '../../../features/changeViewTask';
 
 
 const Tasks:FC<{
-    
     tasks:TaskType[],
     onSearch(e:React.ChangeEvent<HTMLInputElement>):void,
     tasks_template:TaskTemplate,

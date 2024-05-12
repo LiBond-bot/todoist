@@ -1,4 +1,4 @@
-export const dateConversion = ( (date:string) =>{
+export const dateConversion = ((date:Date) =>{
 
     const createDate = new Date(date);
 

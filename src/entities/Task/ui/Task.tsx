@@ -13,9 +13,9 @@ export const Task:FC<{
     id: string,
     checked_task: boolean,
     priority: number,
-    createDate:any,
-    finishDate:any,
-    lastEditDate:any,
+    createDate: Date,
+    finishDate: Date | undefined,
+    lastEditDate: Date | undefined,
 
 }> = observer(({ name, id, checked_task, priority, createDate, finishDate, lastEditDate }) => {
 

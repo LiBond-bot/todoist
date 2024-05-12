@@ -4,7 +4,7 @@ export const ButtonIcon:FC<{
     iconName: any,
     id?:string,
     addClass?:string
-    onClick(e:any): void
+    onClick(e:React.MouseEvent<HTMLElement>): void
 
 }> = ({ iconName, id, addClass, onClick }) => {
     

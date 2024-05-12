@@ -6,9 +6,9 @@ export type TaskQuantityCards = "3-cards" | "4-cards" | "5-cards"
 export type TaskType = { 
     id: string;
     name: string,
-    createDate:any,
-    lastEditDate:any,
-    finishedDate:any,
+    createDate: Date,
+    lastEditDate: Date | undefined,
+    finishedDate: Date | undefined,
     priority: number,
     editor: boolean,
     checked: boolean 

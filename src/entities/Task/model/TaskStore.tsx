@@ -76,8 +76,8 @@ class TaskStore {
                 // От новой к старой
                 if(this.filter.sort.order == 'ASC'){ 
                     return sort.sort((a,b) => {
-                            let c:any = new Date(a.createDate);
-                            let d:any = new Date(b.createDate);
+                            let c:Date = new Date(a.createDate);
+                            let d:Date = new Date(b.createDate);
                             
                             return c.getTime()-d.getTime();
                         }
@@ -88,8 +88,8 @@ class TaskStore {
                 if(this.filter.sort.order == 'DESC'){ 
                     return sort.sort((a,b) =>
                         {
-                            let c:any = new Date(a.createDate);
-                            let d:any = new Date(b.createDate);
+                            let c:Date = new Date(a.createDate);
+                            let d:Date = new Date(b.createDate);
                             
                             return d.getTime() - c.getTime();
                         }
@@ -148,8 +148,8 @@ class TaskStore {
             'id': uuidv4(),
             'name': name,
             'createDate': createDate,
-            'lastEditDate': false,
-            'finishedDate': false,
+            'lastEditDate': undefined,
+            'finishedDate': undefined,
             'priority': priority,
             'editor': false,
             'checked': false
@@ -173,7 +173,7 @@ class TaskStore {
             
             this.tasks[index].checked = !this.tasks[index].checked;
 
-            if(this.tasks[index].checked == false) {this.tasks[index].finishedDate = false} else {this.tasks[index].finishedDate = finishDate}
+            if(this.tasks[index].checked == false) {this.tasks[index].finishedDate = undefined} else {this.tasks[index].finishedDate = finishDate}
             
             this.setTasks()
         }

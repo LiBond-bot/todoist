@@ -15,7 +15,7 @@ export const TaskPriority:FC<{
     activeNamePriority: boolean,
     editPriority: any,
     activeEditPriority:boolean,
-    setEditPriority:any
+    setEditPriority(e:React.MouseEvent<HTMLElement>):void
 
 }> = observer(({ priority, activeNamePriority, editPriority, activeEditPriority, setEditPriority }) => {
 
@@ -24,7 +24,7 @@ export const TaskPriority:FC<{
     let backgroundColor;
     let color;
 
-    priorities.map((el:any)=>{
+    priorities.map((el)=>{
         if(priority == el.idPriority){
             backgroundColor = el.backgroundColor;
             color = el.color
@@ -39,7 +39,7 @@ export const TaskPriority:FC<{
                 </div>
                 <div>
                     {activeNamePriority && <div className='text-xs'>Приоритет</div>}
-                    {priorities.map((el:any, key:number)=>
+                    {priorities.map((el, key)=>
                         priority == el.idPriority && <div key={key} className='text-sm font-bold'>{el.namePriority}</div>
                     )}
                     
@@ -49,7 +49,7 @@ export const TaskPriority:FC<{
 
             {activeEditPriority &&
                 <div>
-                    {priorities.map((el:any, key:number)=>
+                    {priorities.map((el, key)=>
                         <div key={key} data-id={el.idPriority} onClick={editPriority}>{el.namePriority}</div>
                     )}
                 </div>
