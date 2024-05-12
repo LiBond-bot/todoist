@@ -193,6 +193,19 @@ class TaskStore {
         }
     }
 
+    // Редактирование приоритета
+    EditPriority = (id: TaskType["id"], idPriority: TaskType["priority"]) => {
+        const index = this.tasks.findIndex((task) => task.id == id)
+        if (index !== -1) {
+            
+            if(this.tasks[index].priority != idPriority) {
+                this.tasks[index].priority = idPriority;
+            }
+
+            this.setTasks()
+        }
+    }
+
     // Устанавливаем значение сортировки. Если есть сортировка, то срабатывает фунция прослушки
     setSort = (field:FiledType, value?: OrderType) => {
         if (!['none'].includes(field)) {

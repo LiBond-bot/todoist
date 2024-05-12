@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 
+// Types
+import { TaskType } from 'shared/type/types';
+
 // Icons
 import { RiDeleteBin6Line } from "react-icons/ri";
 
@@ -11,17 +14,20 @@ import {dateConversion} from 'shared/helpers/dateConversion'
 import { TaskPriority } from './TaskPriority';
 
 export const TaskTemplateCard:FC<{
-    name: string,
-    checked_task: boolean,
-    priority: number,
-    createDate:any,
-    finishDate:any,
-    lastEditDate:any
+    name: TaskType["name"],
+    checked_task: TaskType["checked"],
+    priority: TaskType["priority"]
+    createDate:TaskType["createDate"],
+    finishDate:TaskType["lastEditDate"],
+    lastEditDate:TaskType["finishedDate"],
+    activeEditPriority: boolean,
     TrackingValue: any
     onChecked: any
-    onDelete: any
+    onDelete: any,
+    editPriority: any
+    setEditPriority: any
 
-}> = ({ name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete }) => {
+}> = ({ name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete, editPriority, activeEditPriority, setEditPriority }) => {
 
     // Конвертирование дат
 
@@ -73,6 +79,9 @@ export const TaskTemplateCard:FC<{
                             <TaskPriority
                                 priority={priority}
                                 activeNamePriority={false}
+                                editPriority={editPriority}
+                                activeEditPriority={activeEditPriority}
+                                setEditPriority={setEditPriority}
                             />
                         </div>
 

@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 
+// Types
+import { TaskType } from 'shared/type/types';
+
 // Icons
 import { RiDeleteBin6Line } from "react-icons/ri";
 
@@ -12,17 +15,20 @@ import { TaskPriority } from './TaskPriority';
 
 
 export const TaskTemplateLine:FC<{
-    name: string,
-    checked_task: boolean,
-    priority: number,
-    createDate:any,
-    finishDate:any,
-    lastEditDate:any,
-    TrackingValue: any,
-    onChecked: any,
+    name: TaskType["name"],
+    checked_task: TaskType["checked"],
+    priority: TaskType["priority"]
+    createDate:TaskType["createDate"],
+    finishDate:TaskType["lastEditDate"],
+    lastEditDate:TaskType["finishedDate"],
+    activeEditPriority: boolean,
+    TrackingValue: any
+    onChecked: any
     onDelete: any,
+    editPriority: any
+    setEditPriority: any
 
-}> = ({ name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete }) => {
+}> = ({ name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete, editPriority, activeEditPriority, setEditPriority }) => {
 
     // Конвертирование дат
 
@@ -67,6 +73,9 @@ export const TaskTemplateLine:FC<{
                             <TaskPriority
                                 priority={priority}
                                 activeNamePriority={true}
+                                editPriority={editPriority}
+                                activeEditPriority={activeEditPriority}
+                                setEditPriority={setEditPriority}
                             />
                         </div>
 

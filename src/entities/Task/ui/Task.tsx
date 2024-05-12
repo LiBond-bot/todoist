@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 // Store
 import { observer } from "mobx-react-lite"
@@ -21,6 +21,8 @@ export const Task:FC<{
 
     const TaskStore = useStore();
 
+    const [activeEditPriority, setActiveEditPriority] =  useState(false);
+
     const TrackingValue = (event: any) =>  {
         TaskStore.EditTask(id, event.target.value )
     }
@@ -33,6 +35,17 @@ export const Task:FC<{
         TaskStore.CheckedTask(id)
     }
 
+    // Изменение приоритета
+    const setEditPriority = () => {
+        setActiveEditPriority(!activeEditPriority);
+    }
+
+    const changePriority = (e: any) => {
+        const idPriority = Number(e.currentTarget.dataset.id);
+        TaskStore.EditPriority(id, idPriority)
+        setEditPriority();
+    }
+
     return (
         <>
             {TaskStore.tasks_view.tasks_template == 'line' && 
@@ -43,9 +56,13 @@ export const Task:FC<{
                     createDate={createDate}
                     finishDate={finishDate}
                     lastEditDate={lastEditDate}
+                    
+                    activeEditPriority={activeEditPriority}
                     TrackingValue={TrackingValue}
                     onChecked={onChecked}
                     onDelete={onDelete}
+                    editPriority={changePriority}
+                    setEditPriority={setEditPriority}
                 />
             }
             {TaskStore.tasks_view.tasks_template == 'card' && 
@@ -56,9 +73,12 @@ export const Task:FC<{
                     createDate={createDate}
                     finishDate={finishDate}
                     lastEditDate={lastEditDate}
+                    activeEditPriority={activeEditPriority}
                     TrackingValue={TrackingValue}
                     onChecked={onChecked}
                     onDelete={onDelete}
+                    editPriority={changePriority}
+                    setEditPriority={setEditPriority}
                 />
             }
         </>
