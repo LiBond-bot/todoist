@@ -64,6 +64,7 @@ const Tasks:FC<{
                         priority={el.priority}
                         createDate={el.createDate} 
                         finishDate={el.finishedDate}
+                        lastEditDate={el.lastEditDate}
                     />
                 )}
             </div> 

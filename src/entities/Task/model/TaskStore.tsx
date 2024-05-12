@@ -183,7 +183,12 @@ class TaskStore {
     EditTask = (id: TaskType["id"], name: TaskType["name"]) => {
         const index = this.tasks.findIndex((task) => task.id == id)
         if (index !== -1) {
+            const lastEditDate = new Date();
+
             this.tasks[index].name = name;
+
+            this.tasks[index].lastEditDate = lastEditDate;
+
             this.setTasks()
         }
     }

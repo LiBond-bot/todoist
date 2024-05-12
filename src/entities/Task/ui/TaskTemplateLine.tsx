@@ -17,16 +17,21 @@ export const TaskTemplateLine:FC<{
     priority: number,
     createDate:any,
     finishDate:any,
-    TrackingValue: any
-    onChecked: any
-    onDelete: any
+    lastEditDate:any,
+    TrackingValue: any,
+    onChecked: any,
+    onDelete: any,
 
-}> = ({ name, checked_task, priority, createDate, finishDate, TrackingValue, onChecked, onDelete }) => {
+}> = ({ name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete }) => {
 
-    const createDateConvert = dateConversion(createDate);
+    // Конвертирование дат
 
     let finishedDateConvert;
+    let lastEditDateConvert;
+
+    const createDateConvert = dateConversion(createDate);
     if(finishDate){ finishedDateConvert = dateConversion(finishDate)}
+    if(lastEditDate){ lastEditDateConvert = dateConversion(lastEditDate)}
 
     return (
         <>
@@ -50,7 +55,8 @@ export const TaskTemplateLine:FC<{
                                 value={name}
                                 onChange={TrackingValue}
                             />
-                            <div>Создана: {createDateConvert}</div>
+                            <div className='text-sm'>Создана: {createDateConvert}</div>
+                            {lastEditDate && <div className='text-sm'>Изменена: {lastEditDateConvert}</div>}
                             {finishDate && <div className='text-sm'>Завершена: {finishedDateConvert}</div>}
                         </div>
 
