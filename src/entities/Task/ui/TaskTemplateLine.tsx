@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 
+import 'shared/assets/css/App.css'
+
 // Types
 import { TaskType } from 'shared/type/types';
 
@@ -15,6 +17,7 @@ import { TaskPriority } from './TaskPriority';
 
 
 export const TaskTemplateLine:FC<{
+    id:TaskType["id"],
     name: TaskType["name"],
     checked_task: TaskType["checked"],
     priority: TaskType["priority"]
@@ -27,8 +30,7 @@ export const TaskTemplateLine:FC<{
     onDelete: any,
     editPriority: any
     setEditPriority: any
-
-}> = ({ name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete, editPriority, activeEditPriority, setEditPriority }) => {
+}> = ({ id, name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete, editPriority, activeEditPriority, setEditPriority }) => {
 
     // Конвертирование дат
 
@@ -48,28 +50,38 @@ export const TaskTemplateLine:FC<{
             )}>
                 <div className='flex flex-row justify-between items-center'>
                     <div className='flex flex-row'>
-                        <input type="checkbox" name="checkbox-1" className="w-5 mr-6 cursor-pointer" checked={checked_task ? true : false} onClick={onChecked} />
-                       
-                        <div>
-                            <input 
-                                type="text"
-                                className={classNames(
-                                    'focus-visible:outline-none bg-transparent', {
-                                        'line-through': checked_task == true,
-                                    }
-                                )}
-                                value={name}
-                                onChange={TrackingValue}
-                            />
-                            <div className='text-sm'>Создана: {createDateConvert}</div>
-                            {lastEditDate && <div className='text-sm'>Изменена: {lastEditDateConvert}</div>}
-                            {finishDate && <div className='text-sm'>Завершена: {finishedDateConvert}</div>}
+                        {/* <input type="checkbox" name="checkbox-1" className="custom-checkbox" checked={checked_task ? true : false} onClick={onChecked} /> */}
+                        
+                        <div className="checkbox">
+                            <input className="custom-checkbox" type="checkbox" id={"color-"+id} name={"color-"+id} value="indigo"/>
+                            <label htmlFor={"color-"+id}></label>
+                        </div>
+
+                        <div>  
+                            
+                            <div className="font-bold mb-2">
+                                <input 
+                                    type="text"
+                                    className={classNames(
+                                        'focus-visible:outline-none bg-transparent', {
+                                            'line-through': checked_task == true,
+                                        }
+                                    )}
+                                    value={name}
+                                    onChange={TrackingValue}
+                                />
+                            </div>
+                            <div className='flex gap-3 bg-indigo-50 w-max px-2 py-0.5 rounded-md'>
+                                <div className='text-xs'><b>Создана:</b> {createDateConvert}</div>
+                                {lastEditDate && <div className='text-xs'><b>Изменена:</b> {lastEditDateConvert}</div>}
+                                {finishDate && <div className='text-xs'><b>Завершена:</b> {finishedDateConvert}</div>}
+                            </div>
                         </div>
 
                     </div>
                     <div className='flex flex-row items-center'>
                         
-                        <div className='mr-4'>
+                        <div className='relative mr-4'>
                             <TaskPriority
                                 priority={priority}
                                 activeNamePriority={true}

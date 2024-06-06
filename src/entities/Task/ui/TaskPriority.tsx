@@ -1,7 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
+import classNames from 'classnames';
 
 import { observer } from "mobx-react-lite"
-import { useStore } from 'entities/Task/model/context';
 
 // Icons
 import { FaFlag } from "react-icons/fa6";
@@ -33,7 +33,12 @@ export const TaskPriority:FC<{
 
     return (
         <>
-            <div className={'flex flex-row items-center px-2 py-1 rounded-xl ' + backgroundColor}>
+            <div className={classNames(
+                'flex flex-row items-center px-2 py-1 ' + backgroundColor, {
+                    'rounded-xl': activeEditPriority == false,
+                    'rounded-t-xl': activeEditPriority == true,
+                }
+            )}>
                 <div className={'text-lg mr-2 ' + color}>
                     <FaFlag />
                 </div>
@@ -48,7 +53,7 @@ export const TaskPriority:FC<{
             </div>
 
             {activeEditPriority &&
-                <div>
+                <div className={'absolute cursor-pointer rounded-b-lg w-full text-center text-sm '+ backgroundColor}>
                     {priorities.map((el, key)=>
                         <div key={key} data-id={el.idPriority} onClick={editPriority}>{el.namePriority}</div>
                     )}

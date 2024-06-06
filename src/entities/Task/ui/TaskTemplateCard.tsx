@@ -14,6 +14,7 @@ import {dateConversion} from 'shared/helpers/dateConversion'
 import { TaskPriority } from './TaskPriority';
 
 export const TaskTemplateCard:FC<{
+    id:TaskType["id"],
     name: TaskType["name"],
     checked_task: TaskType["checked"],
     priority: TaskType["priority"]
@@ -26,8 +27,7 @@ export const TaskTemplateCard:FC<{
     onDelete: any,
     editPriority: any
     setEditPriority: any
-
-}> = ({ name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete, editPriority, activeEditPriority, setEditPriority }) => {
+}> = ({ id, name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete, editPriority, activeEditPriority, setEditPriority }) => {
 
     // Конвертирование дат
 

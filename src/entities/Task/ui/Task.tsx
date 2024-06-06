@@ -56,13 +56,13 @@ export const Task:FC<{
                     createDate={createDate}
                     finishDate={finishDate}
                     lastEditDate={lastEditDate}
-                    
                     activeEditPriority={activeEditPriority}
                     TrackingValue={TrackingValue}
                     onChecked={onChecked}
                     onDelete={onDelete}
                     editPriority={changePriority}
                     setEditPriority={setEditPriority}
+                    id={id}
                 />
             }
             {TaskStore.tasks_view.tasks_template == 'card' && 
@@ -79,6 +79,7 @@ export const Task:FC<{
                     onDelete={onDelete}
                     editPriority={changePriority}
                     setEditPriority={setEditPriority}
+                    id={id}
                 />
             }
         </>
