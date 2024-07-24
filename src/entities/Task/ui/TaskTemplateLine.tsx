@@ -50,13 +50,7 @@ export const TaskTemplateLine:FC<{
             )}>
                 <div className='flex flex-row justify-between items-center'>
                     <div className='flex flex-row'>
-                        {/* <input type="checkbox" name="checkbox-1" className="custom-checkbox" checked={checked_task ? true : false} onClick={onChecked} /> */}
-                        
-                        <div className="checkbox">
-                            <input className="custom-checkbox" type="checkbox" id={"color-"+id} name={"color-"+id} value="indigo"/>
-                            <label htmlFor={"color-"+id}></label>
-                        </div>
-
+                        <input type="checkbox" name="checkbox-1" className="w-4 cursor-pointer mr-4" checked={checked_task ? true : false} onClick={onChecked} />
                         <div>  
                             
                             <div className="font-bold mb-2">

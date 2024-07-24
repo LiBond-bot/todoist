@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 // Types
-import { FiledType } from '../../../shared/type/types';
+import { FiledType } from 'shared/type/types';
 
 // Store
 import { observer } from "mobx-react-lite"

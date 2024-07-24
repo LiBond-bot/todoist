@@ -3,8 +3,8 @@ import { observer } from "mobx-react-lite"
 import { useStore } from 'entities/Task/model/context';
 
 // Components
-import { InputText } from '../../../shared/ui/inputText';
-import { Button } from '../../../shared/ui/button';
+import { InputText } from 'shared/ui/inputText';
+import { Button } from 'shared/ui/button';
 
 export const CreateTask = observer(() => {
 

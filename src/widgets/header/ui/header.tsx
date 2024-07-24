@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 // Ui
-import { Title } from '../../../shared/ui/title';
+import { Title } from 'shared/ui/title';
 
 export const Header:FC<{
     title:string,

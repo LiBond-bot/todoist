@@ -1,7 +1,7 @@
 import { makeAutoObservable, observe, reaction } from "mobx";
 import { v4 as uuidv4 } from "uuid"
 
-import { TaskType, OrderType, FiledType, TaskTemplate, TaskQuantityCards } from '../../../shared/type/types';
+import { TaskType, OrderType, FiledType, TaskTemplate, TaskQuantityCards } from 'shared/type/types';
 
 class TaskStore {
     private storage_name = "tasks"
@@ -23,7 +23,6 @@ class TaskStore {
     tasks_filter: TaskType[] = []
     tasks_output: TaskType[] = []
    
-
     // Фильтры
     filter: {
         search: string,

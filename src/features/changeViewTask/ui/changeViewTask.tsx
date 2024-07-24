@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite"
 import { useStore } from 'entities/Task/model/context';
 
 // Components
-import { ButtonIcon } from '../../../shared/ui/button';
+import { ButtonIcon } from 'shared/ui/button';
 
 // Icons
 import { FaEquals } from "react-icons/fa";
