@@ -19,28 +19,43 @@ export const TaskPriority:FC<{
 
 }> = observer(({ priority, activeNamePriority, editPriority, activeEditPriority, setEditPriority }) => {
 
+    const backgroundColors = {
+        green: 'bg-green-50',
+        red: 'bg-red-50',
+        yellow: 'bg-yellow-50',
+    }
+
+    const Colors = {
+        green: 'text-green-600',
+        red: 'text-red-600',
+        yellow: 'text-amber-600',
+    }
+
+    type BackgroundColorsKey = keyof typeof backgroundColors;
+    type ColorsKey = keyof typeof Colors;
+
+    let backgroundColor: BackgroundColorsKey = 'green';
+    let color: ColorsKey = 'green';
+
     const priorities = config.priorityConfig;
-   
-    let backgroundColor;
-    let color;
 
     priorities.map((el)=>{
         if(priority == el.idPriority){
-            backgroundColor = el.backgroundColor;
-            color = el.color
+            backgroundColor = el.color as BackgroundColorsKey;
+            color =  el.color as ColorsKey;
         }
     })
 
     return (
         <>
             <div className={classNames(
-                'flex flex-row items-center px-2 py-1 ' + backgroundColor, {
+                'flex flex-row items-center px-2 py-1 ' + `${backgroundColors[backgroundColor]}`, {
                     'rounded-xl': activeEditPriority == false,
                     'rounded-t-xl': activeEditPriority == true,
                 }
             )}>
                 
-                <div className={'text-lg mr-2 ' + color}>
+                <div className={'text-lg mr-2 ' + `${Colors[color]}`}>
                     <FaFlag />
                 </div>
                 <div>
@@ -54,7 +69,7 @@ export const TaskPriority:FC<{
             </div>
 
             {activeEditPriority &&
-                <div className={'absolute cursor-pointer rounded-b-lg w-full text-center text-sm '+ backgroundColor}>
+                <div className={'absolute cursor-pointer rounded-b-lg w-full text-center text-sm '+ `${backgroundColors[backgroundColor]}`}>
                     {priorities.map((el, key)=>
                         <div key={key} data-id={el.idPriority} onClick={editPriority}>{el.namePriority}</div>
                     )}

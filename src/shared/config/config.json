@@ -3,20 +3,17 @@
         {
             "idPriority": 0,
             "namePriority": "Низкий",
-            "backgroundColor": "bg-green-50",
-            "color":"text-green-600"
+            "color": "green"
         },
         {
             "idPriority": 1,
             "namePriority": "Средний",
-            "backgroundColor": "bg-yellow-50",
-            "color":"text-amber-600"
+            "color": "yellow"
         },
         {
             "idPriority": 2,
             "namePriority": "Высокий",
-            "backgroundColor": "bg-red-50",
-            "color":"text-red-600"
+            "color": "red"
         }
         
     ]
