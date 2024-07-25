@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 
-import 'shared/assets/css/App.css'
-
 // Types
 import { TaskType } from 'shared/type/types';
 
@@ -25,12 +23,12 @@ export const TaskTemplateLine:FC<{
     finishDate:TaskType["lastEditDate"],
     lastEditDate:TaskType["finishedDate"],
     activeEditPriority: boolean,
-    TrackingValue: any
-    onChecked: any
-    onDelete: any,
-    editPriority: any
-    setEditPriority: any
-}> = ({ id, name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete, editPriority, activeEditPriority, setEditPriority }) => {
+    TrackingValue: React.ChangeEventHandler<HTMLInputElement>,
+    onChecked: React.MouseEventHandler<HTMLInputElement>,
+    onDelete: () => void,
+    editPriority: (e: React.MouseEvent<HTMLElement>) => void,
+    setEditPriority(e:React.MouseEvent<HTMLElement>):void
+}> = ({name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete, editPriority, activeEditPriority, setEditPriority }) => {
 
     // Конвертирование дат
 
@@ -50,9 +48,9 @@ export const TaskTemplateLine:FC<{
             )}>
                 <div className='flex flex-row justify-between items-center'>
                     <div className='flex flex-row'>
-                        <input type="checkbox" name="checkbox-1" className="w-4 cursor-pointer mr-4" checked={checked_task ? true : false} onClick={onChecked} />
+                        <input type="checkbox" name="checkbox-1" className="cursor-pointer mr-4 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" checked={checked_task ? true : false} onClick={onChecked} />
+                        
                         <div>  
-                            
                             <div className="font-bold mb-2">
                                 <input 
                                     type="text"

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 export const ButtonIcon:FC<{
-    iconName: any,
+    iconName: React.ReactNode,
     id?:string,
     addClass?:string
     onClick(e:React.MouseEvent<HTMLElement>): void

@@ -1,8 +1,5 @@
 import React from 'react';
 
-// Styles
-import '../shared/assets/css/App.css';
-
 // Store
 import TaskStore from 'entities/Task/model/TaskStore'
 import {StoreContext} from 'entities/Task/model/context';

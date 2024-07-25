@@ -22,15 +22,14 @@ export const TaskTemplateCard:FC<{
     finishDate:TaskType["lastEditDate"],
     lastEditDate:TaskType["finishedDate"],
     activeEditPriority: boolean,
-    TrackingValue: any
-    onChecked: any
-    onDelete: any,
-    editPriority: any
-    setEditPriority: any
-}> = ({ id, name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete, editPriority, activeEditPriority, setEditPriority }) => {
+    TrackingValue: React.ChangeEventHandler<HTMLInputElement>,
+    onChecked: React.MouseEventHandler<HTMLInputElement>,
+    onDelete: () => void,
+    editPriority: (e: React.MouseEvent<HTMLElement>) => void,
+    setEditPriority(e:React.MouseEvent<HTMLElement>):void
+}> = ({ name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete, editPriority, activeEditPriority, setEditPriority }) => {
 
     // Конвертирование дат
-
     let finishedDateConvert;
     let lastEditDateConvert;
 

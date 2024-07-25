@@ -13,7 +13,7 @@ import config from 'shared/config/config.json'
 export const TaskPriority:FC<{
     priority: number,
     activeNamePriority: boolean,
-    editPriority: any,
+    editPriority: (e: React.MouseEvent<HTMLElement>) => void,
     activeEditPriority:boolean,
     setEditPriority(e:React.MouseEvent<HTMLElement>):void
 
@@ -39,6 +39,7 @@ export const TaskPriority:FC<{
                     'rounded-t-xl': activeEditPriority == true,
                 }
             )}>
+                
                 <div className={'text-lg mr-2 ' + color}>
                     <FaFlag />
                 </div>

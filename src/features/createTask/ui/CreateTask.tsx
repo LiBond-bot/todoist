@@ -1,4 +1,3 @@
-import React from 'react';
 import { observer } from "mobx-react-lite"
 import { useStore } from 'entities/Task/model/context';
 
@@ -10,16 +9,19 @@ export const CreateTask = observer(() => {
 
     const TaskStore = useStore();
 
-    function sendTask(event: any) {
+    function sendTask(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        const NameTask = event.target[0].value;
-        const TaskPriority = event.target[1].value;
+        const inputName = (event.currentTarget.elements[0] as HTMLInputElement);
+        const inputPriority = (event.currentTarget.elements[1] as HTMLInputElement);
+
+        const NameTask = inputName.value;
+        const TaskPriority = Number(inputPriority.value);
 
         if (NameTask) TaskStore.CreateTask(NameTask, TaskPriority);
 
-        event.target[0].value = '';
-        event.target[1].value = '0';
+        inputName.value = '';
+        inputPriority.value = '0';
     }
 
     return (

@@ -23,11 +23,11 @@ export const Task:FC<{
 
     const [activeEditPriority, setActiveEditPriority] =  useState(false);
 
-    const TrackingValue = (event: any) =>  {
+    const TrackingValue = (event: React.ChangeEvent<HTMLInputElement>) =>  {
         TaskStore.EditTask(id, event.target.value )
     }
 
-    const onDelete = (event: any) =>  {
+    const onDelete = () =>  {
         TaskStore.DeleteTask(id)
     }
 
@@ -40,7 +40,7 @@ export const Task:FC<{
         setActiveEditPriority(!activeEditPriority);
     }
 
-    const changePriority = (e: any) => {
+    const changePriority = (e: React.MouseEvent<HTMLElement>) => {
         const idPriority = Number(e.currentTarget.dataset.id);
         TaskStore.EditPriority(id, idPriority)
         setEditPriority();
