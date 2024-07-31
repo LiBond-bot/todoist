@@ -13,6 +13,9 @@ import {dateConversion} from 'shared/helpers/dateConversion'
 // Ui
 import { TaskPriority } from './TaskPriority';
 
+// Config
+import config from 'shared/config/config.json'
+
 
 export const TaskTemplateLine:FC<{
     id:TaskType["id"],
@@ -39,6 +42,24 @@ export const TaskTemplateLine:FC<{
     if(finishDate){ finishedDateConvert = dateConversion(finishDate)}
     if(lastEditDate){ lastEditDateConvert = dateConversion(lastEditDate)}
 
+    const Colors = {
+        green: 'border-green-600',
+        red: 'border-red-600',
+        yellow: 'border-amber-600',
+    }
+
+    type ColorsKey = keyof typeof Colors;
+
+    let color: ColorsKey = 'green';
+
+    const priorities = config.priorityConfig;
+
+    priorities.map((el)=>{
+        if(priority == el.idPriority){
+            color =  el.color as ColorsKey;
+        }
+    })
+
     return (
         <>
             <div className={classNames(
@@ -47,15 +68,15 @@ export const TaskTemplateLine:FC<{
                 }
             )}>
                 <div className='flex flex-row justify-between items-center'>
-                    <div className='flex flex-row'>
-                        <input type="checkbox" name="checkbox-1" className="cursor-pointer mr-4 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" checked={checked_task ? true : false} onClick={onChecked} />
+                    <div className='flex flex-row items-center'>
+                        <input type="checkbox" name="todo_done" className={"cursor-pointer mr-4 h-5 w-5 rounded border-gray-300 text-indigo-800 focus:ring-indigo-800 border-2 " + `${Colors[color]}`} checked={checked_task ? true : false} onClick={onChecked} />
                         
                         <div>  
-                            <div className="font-bold mb-2">
+                            <div className="font-bold mb-0">
                                 <input 
                                     type="text"
                                     className={classNames(
-                                        'focus-visible:outline-none bg-transparent', {
+                                        'bg-transparent border-transparent p-0 focus:border-transparent focus:ring-0 text-lg', {
                                             'line-through': checked_task == true,
                                         }
                                     )}
@@ -63,17 +84,19 @@ export const TaskTemplateLine:FC<{
                                     onChange={TrackingValue}
                                 />
                             </div>
-                            <div className='flex gap-3 bg-indigo-50 w-max px-2 py-0.5 rounded-md'>
-                                <div className='text-xs'><b>Создана:</b> {createDateConvert}</div>
-                                {lastEditDate && <div className='text-xs'><b>Изменена:</b> {lastEditDateConvert}</div>}
-                                {finishDate && <div className='text-xs'><b>Завершена:</b> {finishedDateConvert}</div>}
-                            </div>
+                            
                         </div>
 
                     </div>
                     <div className='flex flex-row items-center'>
+
+                        <div className='flex gap-3 bg-indigo-50 w-max px-2 py-0.5 rounded-md'>
+                            <div className='text-xs'><b>Создана:</b> {createDateConvert}</div>
+                            {/* {lastEditDate && <div className='text-xs'><b>Изменена:</b> {lastEditDateConvert}</div>} */}
+                            {/* {finishDate && <div className='text-xs'><b>Завершена:</b> {finishedDateConvert}</div>} */}
+                        </div>
                         
-                        <div className='relative mr-4'>
+                        <div className='relative mr-4 ml-4'>
                             <TaskPriority
                                 priority={priority}
                                 activeNamePriority={true}

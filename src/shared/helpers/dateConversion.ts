@@ -9,7 +9,7 @@ export const dateConversion = ((date:Date) =>{
     const year = createDate.getFullYear();
 
     createDate.getDate() <= 9 ? day = '0' + createDate.getDate() : day = createDate.getDate();
-    createDate.getMonth() <= 9 ? month = '0' + createDate.getDate() : month = createDate.getMonth();
+    createDate.getMonth() <= 9 ? month = '0' + createDate.getMonth() : month = createDate.getMonth();
     createDate.getHours() <= 9 ? hours = '0' + createDate.getHours() : hours = createDate.getHours();
     createDate.getMinutes() <= 9 ? minutes = '0' + createDate.getMinutes() : minutes = createDate.getMinutes();
 

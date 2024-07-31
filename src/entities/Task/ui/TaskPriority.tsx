@@ -48,33 +48,35 @@ export const TaskPriority:FC<{
 
     return (
         <>
-            <div className={classNames(
-                'flex flex-row items-center px-2 py-1 ' + `${backgroundColors[backgroundColor]}`, {
-                    'rounded-xl': activeEditPriority == false,
-                    'rounded-t-xl': activeEditPriority == true,
-                }
-            )}>
-                
-                <div className={'text-lg mr-2 ' + `${Colors[color]}`}>
-                    <FaFlag />
-                </div>
-                <div>
-                    {activeNamePriority && <div className='text-xs'>Приоритет</div>}
-                    {priorities.map((el, key)=>
-                        priority == el.idPriority && <div key={key} className='text-sm font-bold'>{el.namePriority}</div>
-                    )}
+            <div className='relative'>
+                <div className={classNames(
+                    'flex flex-row items-center px-2 py-1 ' + `${backgroundColors[backgroundColor]}`, {
+                        'rounded-xl': activeEditPriority == false,
+                        'rounded-t-xl': activeEditPriority == true,
+                    }
+                )}>
                     
+                    <div className={'text-lg mr-2 ' + `${Colors[color]}`}>
+                        <FaFlag />
+                    </div>
+                    <div>
+                        {activeNamePriority && <div className='text-xs'>Приоритет</div>}
+                        {priorities.map((el, key)=>
+                            priority == el.idPriority && <div key={key} className='text-sm font-bold'>{el.namePriority}</div>
+                        )}
+                        
+                    </div>
+                    <div className="ml-2 cursor-pointer text-sm opacity-50 hover:opacity-100" onClick={setEditPriority}><MdEdit/></div>
                 </div>
-                <div className="ml-2 cursor-pointer text-sm opacity-50 hover:opacity-100" onClick={setEditPriority}><MdEdit/></div>
-            </div>
 
-            {activeEditPriority &&
-                <div className={'absolute cursor-pointer rounded-b-lg w-full text-center text-sm '+ `${backgroundColors[backgroundColor]}`}>
-                    {priorities.map((el, key)=>
-                        <div key={key} data-id={el.idPriority} onClick={editPriority}>{el.namePriority}</div>
-                    )}
-                </div>
-            }
+                {activeEditPriority &&
+                    <div className={'absolute cursor-pointer rounded-b-lg w-full text-center text-sm pb-2 pt-1 '+ `${backgroundColors[backgroundColor]}`}>
+                        {priorities.map((el, key)=>
+                            <div key={key} data-id={el.idPriority} onClick={editPriority}>{el.namePriority}</div>
+                        )}
+                    </div>
+                }
+            </div>
         </>
 
     );
