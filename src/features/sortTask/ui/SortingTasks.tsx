@@ -1,39 +1,69 @@
-import React, { FC } from 'react';
-
 // Types
 import { FiledType } from 'shared/type/types';
+import classNames from 'classnames';
 
 // Store
 import { observer } from "mobx-react-lite"
 import { useStore } from 'entities/Task/model/context';
 
-// Icons
-import { FaSortAmountUp } from "react-icons/fa";
-import { FaSortAmountDownAlt } from "react-icons/fa";
+// UI
+import { OrderIcon } from 'shared/ui/icons';
+import { Select } from 'shared/ui/formElements';
 
-const OrderIcon = ( {order}:{order?:"ASC" |"DESC"} ) => {
-    return <>{order === "ASC" ? <FaSortAmountDownAlt/> : <FaSortAmountUp/>}</> 
-}
 
-export const SortingTasks:FC<{
-}> = observer(() => {
+export const SortingTasks = observer(() => {
+
+    const dataTypeSort = [
+        {
+            value:'none',
+            name: 'Без сортировки'
+        },
+        {
+            value:'priority',
+            name: 'По приоритету'
+        },
+        {
+            value:'date',
+            name: 'По дате создания'
+        }
+    ]
 
     const TaskStore = useStore();
 
+    // Текущие значения сортировки и порядка сортировки
     const {field, order} = TaskStore.filter.sort;
 
+    // Функция смены сортировки
     const changeSort = (fieldSort: FiledType): void  => {
         if(fieldSort) { TaskStore.setSort(fieldSort)}
-    } 
+    }
+
+    
 
     return (
         <>
-            <div className='flex'>
-                <div className="mr-6 shadow-xl px-4 py-4 bg-white placeholder-slate-400 focus:outline-none focus:border-indigo-800 focus:ring-indigo-800 block rounded-md sm:text-sm focus:ring-2" id="SortParam">
-                    <div onClick={() => changeSort("none")} data-id="none">Без сортировки</div>
-                    <div onClick={() => changeSort("priority")} data-id="priority">По приоритету {field === "priority" ? <OrderIcon order={order}/> : null}</div>
-                    <div onClick={() => changeSort("date")} data-id="date">По дате {field === "date" ? <OrderIcon order={order}/> : null}</div>
+            <div className='flex mr-5 rounded-md shadow-xl'>
+
+                {/* Select */}
+                <div>
+                    <Select 
+                        id='selectTasksSort'
+                        data={dataTypeSort}
+                        onChange={(e) => changeSort(e.target.value as FiledType)}
+                        addClasses='focus:ring-0'
+                    />
                 </div>
+
+                {/* Иконка порядка сортировки */}
+                <div className={classNames(
+                    'flex border-s p-3 rounded-r-md transition duration-300 ease-in-out', {
+                        'opacity-50': field == 'none' || field == undefined,
+                        'cursor-pointer hover:bg-indigo-800 hover:text-white': field != 'none' && field != undefined,
+                    }
+                )} onClick={() => TaskStore.changeOrder()}>
+                    <OrderIcon order={order}/>
+                </div>
+
             </div>
         </>
 

@@ -13,3 +13,8 @@ export type TaskType = {
     editor: boolean,
     checked: boolean 
 }
+
+export type SelectType = { 
+    value: string;
+    name: string,
+}

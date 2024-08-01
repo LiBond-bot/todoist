@@ -1,4 +1,4 @@
-import { makeAutoObservable, observe, reaction } from "mobx";
+import { makeAutoObservable, reaction } from "mobx";
 import { v4 as uuidv4 } from "uuid"
 
 import { TaskType, OrderType, FiledType, TaskTemplate, TaskQuantityCards } from 'shared/type/types';
@@ -57,7 +57,7 @@ class TaskStore {
 
         if (this.filter.sort.field) {
 
-            let sort = tasks.concat();
+            const sort = tasks.concat();
 
             // Сортировка по приоритету
             if(this.filter.sort.field == 'priority') {
@@ -75,8 +75,8 @@ class TaskStore {
                 // От новой к старой
                 if(this.filter.sort.order == 'ASC'){ 
                     return sort.sort((a,b) => {
-                            let c:Date = new Date(a.createDate);
-                            let d:Date = new Date(b.createDate);
+                            const c:Date = new Date(a.createDate);
+                            const d:Date = new Date(b.createDate);
                             
                             return c.getTime()-d.getTime();
                         }
@@ -87,8 +87,8 @@ class TaskStore {
                 if(this.filter.sort.order == 'DESC'){ 
                     return sort.sort((a,b) =>
                         {
-                            let c:Date = new Date(a.createDate);
-                            let d:Date = new Date(b.createDate);
+                            const c:Date = new Date(a.createDate);
+                            const d:Date = new Date(b.createDate);
                             
                             return d.getTime() - c.getTime();
                         }
@@ -205,15 +205,23 @@ class TaskStore {
         }
     }
 
-    // Устанавливаем значение сортировки. Если есть сортировка, то срабатывает фунция прослушки
-    setSort = (field:FiledType, value?: OrderType) => {
+    // Устанавливаем сортировку, если ее нет, сбрасываем значения
+    setSort = (field:FiledType) => {
         if (!['none'].includes(field)) {
             this.filter.sort.field = field
-            this.filter.sort.order = this.filter.sort.order === "ASC" ?  "DESC" : "ASC" 
+            // Порядок сортировки по умолчанию
+            this.filter.sort.order = "ASC"
         } else {
             this.filter.sort.field = undefined;
+            this.filter.sort.order = undefined;
         }
     }
+
+    // Меняем порядок сортировки
+    changeOrder = () => {
+        this.filter.sort.order = this.filter.sort.order === "ASC" ?  "DESC" : "ASC" 
+    }
+
 
     // Устанавливаем поиск. Если поиск не пустой, то срабатывает функция прослушки
     setSearch = (value?: string) => {

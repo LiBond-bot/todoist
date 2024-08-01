@@ -4,8 +4,15 @@ import { useStore } from 'entities/Task/model/context';
 // Components
 import { InputText } from 'shared/ui/inputText';
 import { Button } from 'shared/ui/button';
+import { Select } from "shared/ui/formElements";
 
 export const CreateTask = observer(() => {
+
+    const dataPriority = [
+        { value: '0', name: 'Низкий приоритет' }, 
+        { value: '1', name: 'Средний приоритет' }, 
+        { value: '2', name: 'Высокий приоритет' }
+    ]
 
     const TaskStore = useStore();
 
@@ -30,12 +37,12 @@ export const CreateTask = observer(() => {
             <form className='flex w-full' onSubmit={sendTask}>
                
                 <InputText onChange={undefined} name='task' placeholder='Напишите название задачи'/>
-                
-                <select className="mr-6 shadow-xl px-4 py-4 bg-white placeholder-slate-400 focus:outline-none focus:border-indigo-800 focus:ring-indigo-800 block rounded-md sm:text-sm focus:ring-2" defaultValue="0">
-                    <option value="0">Низкий приоритет</option>
-                    <option value="1">Средний приоритет</option>
-                    <option value="2">Высокий приоритет</option>
-                </select>
+
+                <Select 
+                    id="SelectPriority"
+                    data={dataPriority}
+                    addClasses="mr-6 shadow-xl px-4 py-4 bg-white placeholder-slate-400 focus:outline-none focus:border-indigo-800 focus:ring-indigo-800 block rounded-md sm:text-sm focus:ring-2"
+                />
                 
                 <Button name='Добавить задачу'/>
             </form>
