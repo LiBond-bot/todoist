@@ -40,14 +40,18 @@ const Tasks:FC<{
         <div className='flex flex-row justify-between items-center'>
 
             <div className='flex items-center'>
-                <SortingTasks/>
-                <ChangeViewTask/>
+                <SearchTasks onSearch={onSearch}/>
+                <FilterDate />
+                
             </div>
 
-            <div className='flex items-center'>
-                <FilterDate />
-                <SearchTasks onSearch={onSearch}/>
+            <div className='flex items-start'>
+                <div className='mr-2'><ChangeViewTask/></div>
+                <div><SortingTasks/></div>
+                
             </div>
+
+            
 
             
         </div>
@@ -75,7 +79,7 @@ const Tasks:FC<{
                     />
                 )}
             </div> 
-            : <Plug text='Не найдено ни одной задачи' img={searchImg}/> 
+            : <Plug text='Упс... Задачи не найдены!' img={searchImg}/> 
        }
     </>
 })

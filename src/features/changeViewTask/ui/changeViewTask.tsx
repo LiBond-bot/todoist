@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 // Store
 import { observer } from "mobx-react-lite"
 import { useStore } from 'entities/Task/model/context';
@@ -33,19 +35,37 @@ export const ChangeViewTask = observer(() => {
     }
 
     return (
-        <div className='flex flex-col'>
-            <div className="flex">
-                <ButtonIcon addClass={currentTaskTemplate == 'line' ? 'bg-indigo-800 text-white' : ''} id="line" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>changeView(e)} iconName={<FaEquals/>}/>
-                <ButtonIcon addClass={currentTaskTemplate == 'card' ? 'bg-indigo-800 text-white' : ''} id="card" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>changeView(e)} iconName={<FaGripHorizontal/>}/>
+        <div className='flex flex-col gap-2 items-end'>
+
+            <div className="flex gap-2">
+                <div className={classNames(
+                    '', {
+                        'p-2 relative top-2 pb-4': currentTaskTemplate == 'card',
+                    }
+                )}>
+                    <ButtonIcon addClass={currentTaskTemplate == 'line' ? 'bg-indigo-800 text-white' : 'bg-white'} id="line" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>changeView(e)} iconName={<FaEquals/>}/>
+                </div>
+                <div className={classNames(
+                    '', {
+                        'bg-indigo-50 p-2 rounded-tl-lg rounded-tr-lg pb-4 relative top-2': currentTaskTemplate == 'card',
+                    }
+                )}>
+                    <ButtonIcon addClass={currentTaskTemplate == 'card' ? 'bg-indigo-800 text-white' : 'bg-white'} id="card" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>changeView(e)} iconName={<FaGripHorizontal/>}/>
+                </div>
             </div>
             
             {currentTaskTemplate == 'card' &&
-                <div className='flex'>
-                    <ButtonIcon addClass={currentTaskQuantity == '3-cards' ? 'bg-indigo-800 text-white' : ''} id="3-cards" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>changeQuantityCards(e)} iconName={<PiNumberThreeFill/>}/>
-                    <ButtonIcon addClass={currentTaskQuantity == '4-cards' ? 'bg-indigo-800 text-white' : ''} id="4-cards" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>changeQuantityCards(e)} iconName={<PiNumberFourFill/>}/>
-                    <ButtonIcon addClass={currentTaskQuantity == '5-cards' ? 'bg-indigo-800 text-white' : ''} id="5-cards" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>changeQuantityCards(e)} iconName={<PiNumberFiveFill/>}/>
+                <div className={classNames(
+                    'flex gap-2', {
+                        'bg-indigo-50 p-2 rounded-tl-lg rounded-br-lg rounded-bl-lg': currentTaskTemplate == 'card',
+                    }
+                )}>
+                    <ButtonIcon addClass={currentTaskQuantity == '3-cards' ? 'bg-indigo-800 text-white' : 'bg-white'} id="3-cards" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>changeQuantityCards(e)} iconName={<PiNumberThreeFill/>}/>
+                    <ButtonIcon addClass={currentTaskQuantity == '4-cards' ? 'bg-indigo-800 text-white' : 'bg-white'} id="4-cards" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>changeQuantityCards(e)} iconName={<PiNumberFourFill/>}/>
+                    <ButtonIcon addClass={currentTaskQuantity == '5-cards' ? 'bg-indigo-800 text-white' : 'bg-white'} id="5-cards" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>changeQuantityCards(e)} iconName={<PiNumberFiveFill/>}/>
                 </div>
             }
+
         </div>
     );
 })

@@ -40,7 +40,7 @@ export const SortingTasks = observer(() => {
 
     return (
         <>
-            <div className='flex mr-5 rounded-md shadow-xl border-2 border-transparent  hover:border-indigo-800 hover:ring-indigo-800 transition duration-300 ease-in-out'>
+            <div className='flex rounded-md shadow-xl border-2 border-transparent hover:border-indigo-800 hover:ring-indigo-800 transition duration-300 ease-in-out'>
 
                 {/* Select */}
                 <div>   
