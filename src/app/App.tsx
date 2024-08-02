@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Store
 import TaskStore from 'entities/Task/model/TaskStore'
 import {StoreContext} from 'entities/Task/model/context';
@@ -11,8 +9,10 @@ function App() {
 
   return (
     <StoreContext.Provider value={TaskStore}>
+
       {/* Основная страница */}
       <MainPage/>
+
     </StoreContext.Provider>
   );
 

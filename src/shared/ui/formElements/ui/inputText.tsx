@@ -13,7 +13,7 @@ export const InputText:FC<{
                 name={name}
                 onChange={onChange ? ((e) => onChange(e)) : undefined}
                 placeholder={placeholder} 
-                className="mr-6 shadow-xl px-4 py-4 bg-white  placeholder-slate-400 focus:outline-none focus:border-indigo-800 focus:ring-indigo-800 block w-full rounded-md sm:text-sm focus:ring-2"
+                className="bg-transparent border-transparent focus:border-transparent mr-6 shadow-xl p-4  bg-white  placeholder-slate-400 focus:outline-none focus:border-indigo-800 focus:ring-indigo-800 block w-full rounded-md focus:ring-2 leading-none"
             />
         </>
 

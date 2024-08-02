@@ -16,6 +16,8 @@ import searchImg from 'shared/assets/img/search.png'
 import { Title } from 'shared/ui/title';
 import { Plug } from 'shared/ui/plug';
 import { Task } from 'entities/Task/ui/Task';
+
+// Features
 import { SortingTasks } from 'features/sortTask/ui/SortingTasks';
 import { SearchTasks } from 'features/searchTask/ui/SearchTasks';
 import { ChangeViewTask } from 'features/changeViewTask';
@@ -60,7 +62,7 @@ const Tasks:FC<{
                     'grid-cols-5': tasks_template == 'card' && task_quantity == '5-cards',
                 }
             )}>
-                {tasks.map((el, i) =>
+                {tasks.map((el) =>
                     <Task
                         key={el.id}
                         id={el.id}

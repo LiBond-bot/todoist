@@ -31,16 +31,16 @@ export const TaskTemplateLine:FC<{
     onDelete: () => void,
     editPriority: (e: React.MouseEvent<HTMLElement>) => void,
     setEditPriority(e:React.MouseEvent<HTMLElement>):void
-}> = ({name, checked_task, priority, createDate, finishDate, lastEditDate, TrackingValue, onChecked, onDelete, editPriority, activeEditPriority, setEditPriority }) => {
+}> = ({name, checked_task, priority, createDate, /* finishDate, lastEditDate,*/ TrackingValue, onChecked, onDelete, editPriority, activeEditPriority, setEditPriority }) => {
 
     // Конвертирование дат
 
-    let finishedDateConvert;
-    let lastEditDateConvert;
+    // let finishedDateConvert;
+    // let lastEditDateConvert;
 
     const createDateConvert = dateConversion(createDate);
-    if(finishDate){ finishedDateConvert = dateConversion(finishDate)}
-    if(lastEditDate){ lastEditDateConvert = dateConversion(lastEditDate)}
+    // if(finishDate){ finishedDateConvert = dateConversion(finishDate)}
+    // if(lastEditDate){ lastEditDateConvert = dateConversion(lastEditDate)}
 
     const Colors = {
         green: 'border-green-600',

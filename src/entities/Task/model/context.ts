@@ -1,4 +1,4 @@
-import React, { createContext, useContext, FC } from 'react';
+import React, { useContext } from 'react';
 import TaskStore from './TaskStore';
 
 export const StoreContext = React.createContext(TaskStore);

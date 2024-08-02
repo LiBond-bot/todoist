@@ -1,8 +1,10 @@
 import React, {  FC } from 'react';
+
 // Store
 import { observer } from "mobx-react-lite"
+
 // components
-import { InputText } from 'shared/ui/inputText';
+import { InputText } from 'shared/ui/formElements';
 
 export const SearchTasks:FC<{
     onSearch(e:React.ChangeEvent<HTMLInputElement>): void

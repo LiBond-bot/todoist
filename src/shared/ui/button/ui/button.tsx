@@ -6,7 +6,7 @@ export const Button:FC<{
     
     return (
         <>
-            <button className="bg-indigo-800 px-6 py-2 rounded-lg shadow-xl w-52 text-white">{name}</button>
+            <button className="bg-indigo-800 px-4 py-4 rounded-lg shadow-xl w-52 text-white leading-none">{name}</button>
         </>
     );
 }

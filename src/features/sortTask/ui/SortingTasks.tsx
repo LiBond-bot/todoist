@@ -38,14 +38,12 @@ export const SortingTasks = observer(() => {
         if(fieldSort) { TaskStore.setSort(fieldSort)}
     }
 
-    
-
     return (
         <>
-            <div className='flex mr-5 rounded-md shadow-xl'>
+            <div className='flex mr-5 rounded-md shadow-xl border-2 border-transparent  hover:border-indigo-800 hover:ring-indigo-800 transition duration-300 ease-in-out'>
 
                 {/* Select */}
-                <div>
+                <div>   
                     <Select 
                         id='selectTasksSort'
                         data={dataTypeSort}
@@ -56,7 +54,7 @@ export const SortingTasks = observer(() => {
 
                 {/* Иконка порядка сортировки */}
                 <div className={classNames(
-                    'flex border-s p-3 rounded-r-md transition duration-300 ease-in-out', {
+                    'flex border-s p-3 rounded-r transition duration-300 ease-in-out', {
                         'opacity-50': field == 'none' || field == undefined,
                         'cursor-pointer hover:bg-indigo-800 hover:text-white': field != 'none' && field != undefined,
                     }

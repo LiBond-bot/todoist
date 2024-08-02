@@ -1,18 +1,29 @@
 import { observer } from "mobx-react-lite"
 import { useStore } from 'entities/Task/model/context';
 
+import { SelectType } from 'shared/type/types';
+
 // Components
-import { InputText } from 'shared/ui/inputText';
+import { InputText } from 'shared/ui/formElements';
 import { Button } from 'shared/ui/button';
 import { Select } from "shared/ui/formElements";
 
+// Config
+import config from 'shared/config/config.json'
+
 export const CreateTask = observer(() => {
 
-    const dataPriority = [
-        { value: '0', name: 'Низкий приоритет' }, 
-        { value: '1', name: 'Средний приоритет' }, 
-        { value: '2', name: 'Высокий приоритет' }
-    ]
+
+    const priorities = config.priorityConfig;
+
+    const dataPriority:SelectType[] = []
+    
+    priorities.map(priority => {
+        dataPriority.push({
+            value: priority.idPriority.toString(),
+            name: priority.namePriority + ' приоритет'
+        })
+    });
 
     const TaskStore = useStore();
 

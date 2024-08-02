@@ -65,6 +65,7 @@ export const Task:FC<{
                     id={id}
                 />
             }
+            
             {TaskStore.tasks_view.tasks_template == 'card' && 
                 <TaskTemplateCard 
                     name={name}

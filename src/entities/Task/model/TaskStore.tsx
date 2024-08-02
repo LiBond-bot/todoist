@@ -222,7 +222,6 @@ class TaskStore {
         this.filter.sort.order = this.filter.sort.order === "ASC" ?  "DESC" : "ASC" 
     }
 
-
     // Устанавливаем поиск. Если поиск не пустой, то срабатывает функция прослушки
     setSearch = (value?: string) => {
         if(typeof value === "string") {
