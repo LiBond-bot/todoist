@@ -32,7 +32,7 @@ export const FilterDate:FC<{
     return (
         <>
             <div className='flex'>
-                22
+                Фильтр по дате
             </div>
         </>
 

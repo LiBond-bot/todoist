@@ -13,9 +13,10 @@ export type TaskTemplate = "line" | "card"
 export type TaskQuantityCards = "3-cards" | "4-cards" | "5-cards"
 
 
-// Sort types
+// Sort and filters types
 export type FiledType = "none" | "priority" | "date" 
 export type OrderType = "ASC" | "DESC"
+export type FilterType = false | "priority"
 
 
 // Form types
