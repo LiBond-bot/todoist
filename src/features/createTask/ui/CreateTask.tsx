@@ -1,64 +1,60 @@
-import { observer } from "mobx-react-lite"
-import { useStore } from 'entities/Task/model/context';
+import { observer } from "mobx-react-lite";
+import { useStore } from "entities/Task/model/context";
 
-import { SelectType } from 'shared/type/types';
+import { SelectType } from "shared/type/types";
 
 // Components
-import { InputText } from 'shared/ui/formElements';
-import { Button } from 'shared/ui/button';
+import { InputText } from "shared/ui/formElements";
+import { Button } from "shared/ui/button";
 import { Select } from "shared/ui/formElements";
 
 // Config
-import config from 'shared/config/config.json'
+import config from "shared/config/config.json";
+import { useState } from "react";
 
 export const CreateTask = observer(() => {
+  const TaskStore = useStore();
 
+  const dataPriority = config.priorityConfig.map((priority) => ({
+    value: priority.idPriority.toString(),
+    name: priority.namePriority + " приоритет",
+  }));
 
-    const priorities = config.priorityConfig;
+  const [name, setName] = useState<string | undefined>();
+  const [priority, setPriority] = useState<number | undefined>(
+    Number(dataPriority[0].value),
+  );
 
-    const dataPriority:SelectType[] = []
-    
-    priorities.map(priority => {
-        dataPriority.push({
-            value: priority.idPriority.toString(),
-            name: priority.namePriority + ' приоритет'
-        })
-    });
+  const sendTask = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!name) return;
+    if (typeof priority === "undefined") return;
+    TaskStore.CreateTask(name, priority);
+    setName(undefined);
+    setPriority(undefined);
+  };
 
-    const TaskStore = useStore();
+  return (
+    <div className="flex py-6">
+      <form className="flex w-full" onSubmit={sendTask}>
+        <InputText
+          onChange={(e) => {
+            setName(e?.target?.value);
+          }}
+          name="task"
+          placeholder="Напишите название задачи"
+        />
+        <Select
+          id="SelectPriority"
+          data={dataPriority}
+          onChange={(e) => {
+            setPriority(Number(e?.target?.value));
+          }}
+          addClasses="mr-6 shadow-xl px-4 py-4 bg-white placeholder-slate-400 focus:outline-none focus:border-indigo-800 focus:ring-indigo-800 block rounded-md sm:text-sm focus:ring-2"
+        />
 
-    function sendTask(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-
-        const inputName = (event.currentTarget.elements[0] as HTMLInputElement);
-        const inputPriority = (event.currentTarget.elements[1] as HTMLInputElement);
-
-        const NameTask = inputName.value;
-        const TaskPriority = Number(inputPriority.value);
-
-        if (NameTask) TaskStore.CreateTask(NameTask, TaskPriority);
-
-        inputName.value = '';
-        inputPriority.value = '0';
-    }
-
-    return (
-        <div className='py-6 flex'>
-
-            <form className='flex w-full' onSubmit={sendTask}>
-               
-                <InputText onChange={undefined} name='task' placeholder='Напишите название задачи'/>
-
-                <Select 
-                    id="SelectPriority"
-                    data={dataPriority}
-                    addClasses="mr-6 shadow-xl px-4 py-4 bg-white placeholder-slate-400 focus:outline-none focus:border-indigo-800 focus:ring-indigo-800 block rounded-md sm:text-sm focus:ring-2"
-                />
-                
-                <Button name='Добавить задачу'/>
-            </form>
-
-        </div>
-    );
-})
-
+        <Button name="Добавить задачу" />
+      </form>
+    </div>
+  );
+});

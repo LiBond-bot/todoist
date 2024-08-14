@@ -1,21 +1,17 @@
 // Store
-import TaskStore from 'entities/Task/model/TaskStore'
-import {StoreContext} from 'entities/Task/model/context';
+import TaskStore from "entities/Task/model/TaskStore";
+import { StoreContext } from "entities/Task/model/context";
 
 // Pages
-import { MainPage } from '../pages/main';
+import MainPage from "../pages";
 
 function App() {
-
   return (
     <StoreContext.Provider value={TaskStore}>
-
       {/* Основная страница */}
-      <MainPage/>
-
+      <MainPage />
     </StoreContext.Provider>
   );
-
 }
 
 export default App;
