@@ -1,5 +1,6 @@
 import { makeAutoObservable, reaction } from "mobx";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 
 import {
   TaskType,
@@ -7,7 +8,7 @@ import {
   FiledType,
   TaskTemplate,
   TaskQuantityCards,
-  FilterType,
+  filterDateType,
 } from "shared/type/types";
 
 class TaskStore {
@@ -38,15 +39,19 @@ class TaskStore {
       order?: OrderType;
     };
     filter: {
-      field: FilterType;
       filterPriority: number[];
+      filterDate: {
+        type?: filterDateType;
+        startDate?: Date | null;
+        endDate?: Date | null;
+      };
     };
   } = {
     search: "",
     sort: {},
     filter: {
-      field: false,
       filterPriority: [],
+      filterDate: {},
     },
   };
 
@@ -76,6 +81,51 @@ class TaskStore {
     return tasks.filter((task) => {
       return this.filter.filter.filterPriority.includes(task.priority);
     });
+  };
+
+  // Фильтрация по дате
+  private filter_date = (tasks: TaskType[]) => {
+    console.log(tasks);
+    if (!this.filter.filter.filterDate.type) return tasks;
+
+    if (
+      this.filter.filter.filterDate.startDate &&
+      this.filter.filter.filterDate.endDate
+    ) {
+      if (this.filter.filter.filterDate.type) {
+        const startDate = new Date(this.filter.filter.filterDate.startDate);
+        const endDate = new Date(this.filter.filter.filterDate.endDate);
+
+        const filtertasks = tasks.filter((a) => {
+          let field;
+
+          if (this.filter.filter.filterDate.type === "created") {
+            field = a.createDate;
+          }
+
+          if (this.filter.filter.filterDate.type === "updated") {
+            field = a.lastEditDate;
+          }
+
+          if (field) {
+            // берём текущую дату задачи и обнуляем время, для сравнения только по числу
+            const date = moment(field)
+              .set({ h: 0, m: 0, s: 0, ms: 0 })
+              .toDate();
+
+            // Сравниваем период дат, возвравщаем если есть подходящие
+            return (
+              (date >= startDate && date <= endDate) ||
+              (date <= startDate && date >= endDate)
+            );
+          }
+        });
+
+        return filtertasks;
+      }
+    }
+
+    return tasks;
   };
 
   private sort_handelr = (tasks: TaskType[]) => {
@@ -130,6 +180,10 @@ class TaskStore {
     if (this.filter.filter.filterPriority) {
       tasks = this.filter_prioritety(tasks);
     }
+    if (this.filter.filter.filterDate.type) {
+      tasks = this.filter_date(tasks);
+    }
+
     return tasks;
   };
 
@@ -153,8 +207,8 @@ class TaskStore {
         search: this.filter.search,
         sort_field: this.filter.sort.field,
         sort_order: this.filter.sort.order,
-        filter_field: this.filter.filter.field,
         filter_filterPriority: this.filter.filter.filterPriority,
+        filter_date: this.filter.filter.filterDate,
       }),
       ({ tasks }) => {
         this.tasks_filter = this.filter_handler(tasks);
@@ -270,11 +324,6 @@ class TaskStore {
     }
   };
 
-  // Устанавливаем значения фильтра
-  setFilterType = (field: FilterType) => {
-    this.filter.filter.field = field;
-  };
-
   // Устанавливаем значения фильтра приоритета
   setFilterPriority = (field: 0 | 1 | 2) => {
     const index = this.filter.filter.filterPriority?.indexOf(field);
@@ -304,6 +353,20 @@ class TaskStore {
       );
 
       this.filter.filter.filterPriority = res;
+    }
+  };
+
+  filterDateSet = (
+    startDate: Date | null,
+    EndDate: Date | null,
+    typeDate: filterDateType,
+  ) => {
+    if ((startDate || EndDate) && typeDate) {
+      this.filter.filter.filterDate = {
+        startDate: startDate,
+        endDate: EndDate,
+        type: typeDate,
+      };
     }
   };
 }

@@ -36,7 +36,9 @@ export const TaskTemplateLine: FC<{
   checked_task,
   priority,
   createDate,
-  /* finishDate, lastEditDate,*/ TrackingValue,
+  lastEditDate,
+  /* finishDate, lastEditDate,*/
+  TrackingValue,
   onChecked,
   onDelete,
   editPriority,
@@ -46,11 +48,12 @@ export const TaskTemplateLine: FC<{
   // Конвертирование дат
 
   // let finishedDateConvert;
-  // let lastEditDateConvert;
-
+  let lastEditDateConvert;
   const createDateConvert = dateConversion(createDate);
   // if(finishDate){ finishedDateConvert = dateConversion(finishDate)}
-  // if(lastEditDate){ lastEditDateConvert = dateConversion(lastEditDate)}
+  if (lastEditDate) {
+    lastEditDateConvert = dateConversion(lastEditDate);
+  }
 
   const Colors = {
     green: "border-green-600",
@@ -106,7 +109,11 @@ export const TaskTemplateLine: FC<{
               <div className="text-xs">
                 <b>Создана:</b> {createDateConvert}
               </div>
-              {/* {lastEditDate && <div className='text-xs'><b>Изменена:</b> {lastEditDateConvert}</div>} */}
+              {lastEditDate && (
+                <div className="text-xs">
+                  <b>Изменена:</b> {lastEditDateConvert}
+                </div>
+              )}
               {/* {finishDate && <div className='text-xs'><b>Завершена:</b> {finishedDateConvert}</div>} */}
             </div>
 

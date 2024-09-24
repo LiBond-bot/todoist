@@ -1,40 +1,53 @@
-import React, { FC } from 'react';
-// import DatePicker from "react-datepicker";
+import { FC, useEffect, useState } from "react";
+import { useStore } from "entities/Task/model/context";
 
-// Types
-// import { FiledType } from 'shared/type/types';
+import { observer } from "mobx-react-lite";
 
-// Store
-import { observer } from "mobx-react-lite"
-import { useStore } from 'entities/Task/model/context';
+import { CustomDatePicker } from "shared/ui/dataPicker/index";
 
-// // Icons
-// import { FaSortAmountUp } from "react-icons/fa";
-// import { FaSortAmountDownAlt } from "react-icons/fa";
+import { filterDateType } from "shared/type/types";
 
-// const OrderIcon = ( {order}:{order?:"ASC" |"DESC"} ) => {
-//     return <>{order === "ASC" ? <FaSortAmountDownAlt/> : <FaSortAmountUp/>}</> 
-// }
+export const FilterDate: FC<{
+  typeDateFilter: filterDateType;
+}> = observer(({ typeDateFilter }) => {
+  const TaskStore = useStore();
 
-export const FilterDate:FC<{
-}> = observer(() => {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [typeDate, setTypeDate] = useState<filterDateType>(false);
 
-    const TaskStore = useStore();
+  const handlerStartDate = (e: Date | null) => {
+    if (e) setStartDate(e);
+    setTypeDate(typeDateFilter);
+  };
 
-    // const {field, order} = TaskStore.filter.sort;
+  const handlerEndDate = (e: Date | null) => {
+    if (e) setEndDate(e);
+    setTypeDate(typeDateFilter);
+  };
 
-    // const changeSort = (fieldSort: FiledType): void  => {
-    //     if(fieldSort) { TaskStore.setSort(fieldSort)}
-    // } 
+  useEffect(() => {
+    TaskStore.filterDateSet(startDate, endDate, typeDate);
+  }, [TaskStore, typeDate, startDate, endDate]);
 
-    
-
-    return (
-        <>
-            <div className='flex'>
-                Фильтр по дате
-            </div>
-        </>
-
-    );
-})
+  return (
+    <>
+      <div className="flex gap-4">
+        <div className="w-1/2">
+          <div className="mb-2 text-sm">Начало</div>
+          <CustomDatePicker
+            selectDate={startDate ? startDate : null}
+            callback={handlerStartDate as (e: Date | null) => void}
+          />
+        </div>
+        <div className="w-1/2">
+          <div className="mb-2 text-sm">Конец</div>
+          <CustomDatePicker
+            selectDate={endDate ? endDate : null}
+            callback={handlerEndDate as (e: Date | null) => void}
+          />
+        </div>
+      </div>
+    </>
+  );
+});

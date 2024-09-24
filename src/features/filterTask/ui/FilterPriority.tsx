@@ -14,10 +14,6 @@ export const FilterPriority = observer(() => {
   const TaskStore = useStore();
 
   const getFilterPriority = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (TaskStore.filter.filter.field != "priority") {
-      TaskStore.setFilterType("priority");
-    }
-
     const value = Number(e.currentTarget.value) as 0 | 1 | 2;
 
     if (e.currentTarget.checked === false) {
