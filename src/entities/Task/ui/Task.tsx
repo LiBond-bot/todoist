@@ -16,6 +16,7 @@ export const Task: FC<{
   createDate: Date;
   finishDate: Date | undefined;
   lastEditDate: Date | undefined;
+  deadline: Date | null;
 }> = observer(
   ({
     name,
@@ -25,6 +26,7 @@ export const Task: FC<{
     createDate,
     finishDate,
     lastEditDate,
+    deadline,
   }) => {
     const TaskStore = useStore();
 
@@ -63,6 +65,7 @@ export const Task: FC<{
             createDate={createDate}
             finishDate={finishDate}
             lastEditDate={lastEditDate}
+            deadline={deadline}
             activeEditPriority={activeEditPriority}
             TrackingValue={TrackingValue}
             onChecked={onChecked}

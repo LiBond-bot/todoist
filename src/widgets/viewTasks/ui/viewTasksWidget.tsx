@@ -16,6 +16,7 @@ import searchImg from "shared/assets/img/search.png";
 import { Title } from "shared/ui/title";
 import { Plug } from "shared/ui/plug";
 import { Task } from "entities/Task/ui/Task";
+// import { Button } from "shared/ui/button";
 
 // Features
 import { SortingTasks } from "features/sortTask/ui/SortingTasks";
@@ -29,6 +30,13 @@ const Tasks: FC<{
   tasks_template: TaskTemplate;
   task_quantity: TaskQuantityCards;
 }> = observer(({ tasks, onSearch, tasks_template, task_quantity }) => {
+  // const TaskStore = useStore();
+
+  // const resetFilters = () => {
+  //   TaskStore.filter.filter.filterPriority = [];
+  //   TaskStore.filter.filter.filterDate = {};
+  // };
+
   return (
     <>
       <div className="flex gap-8">
@@ -46,10 +54,18 @@ const Tasks: FC<{
               <FilterDate typeDateFilter="created" />
             </div>
 
-            <div>
+            <div className="mb-5">
               <Title titleName="По дате изменения" fontSize="text-base" />
               <FilterDate typeDateFilter="updated" />
             </div>
+
+            <div className="mb-5">
+              <Title titleName="По сроку завершения" fontSize="text-base" />
+              <FilterDate typeDateFilter="deadline" />
+            </div>
+            {/* <div>
+              <Button onClick={resetFilters} name="Сбросить фильтры" />
+            </div> */}
           </div>
         </div>
 
@@ -97,6 +113,7 @@ const Tasks: FC<{
                   createDate={el.createDate}
                   finishDate={el.finishedDate}
                   lastEditDate={el.lastEditDate}
+                  deadline={el.deadline}
                 />
               ))}
             </div>

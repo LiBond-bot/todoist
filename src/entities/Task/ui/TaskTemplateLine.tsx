@@ -37,7 +37,8 @@ export const TaskTemplateLine: FC<{
   priority,
   createDate,
   lastEditDate,
-  /* finishDate, lastEditDate,*/
+  finishDate,
+  deadline,
   TrackingValue,
   onChecked,
   onDelete,
@@ -47,12 +48,19 @@ export const TaskTemplateLine: FC<{
 }) => {
   // Конвертирование дат
 
-  // let finishedDateConvert;
+  let finishedDateConvert;
   let lastEditDateConvert;
+  let deadlineConvert;
   const createDateConvert = dateConversion(createDate);
-  // if(finishDate){ finishedDateConvert = dateConversion(finishDate)}
+  if (finishDate) {
+    finishedDateConvert = dateConversion(finishDate);
+  }
   if (lastEditDate) {
     lastEditDateConvert = dateConversion(lastEditDate);
+  }
+
+  if (deadline) {
+    deadlineConvert = dateConversion(deadline, "date");
   }
 
   const Colors = {
@@ -114,7 +122,16 @@ export const TaskTemplateLine: FC<{
                   <b>Изменена:</b> {lastEditDateConvert}
                 </div>
               )}
-              {/* {finishDate && <div className='text-xs'><b>Завершена:</b> {finishedDateConvert}</div>} */}
+              {finishDate && (
+                <div className="text-xs">
+                  <b>Завершена:</b> {finishedDateConvert}
+                </div>
+              )}
+              {deadline && (
+                <div className="text-xs">
+                  <b>Срок:</b> {deadlineConvert}
+                </div>
+              )}
             </div>
 
             <div className="relative ml-4 mr-4">

@@ -1,12 +1,11 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "entities/Task/model/context";
 
-import { SelectType } from "shared/type/types";
-
 // Components
 import { InputText } from "shared/ui/formElements";
 import { Button } from "shared/ui/button";
 import { Select } from "shared/ui/formElements";
+import { CustomDatePicker } from "shared/ui/dataPicker/index";
 
 // Config
 import config from "shared/config/config.json";
@@ -24,14 +23,17 @@ export const CreateTask = observer(() => {
   const [priority, setPriority] = useState<number | undefined>(
     Number(dataPriority[0].value),
   );
+  const [deadline, setDeadline] = useState(null);
 
   const sendTask = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!name) return;
     if (typeof priority === "undefined") return;
-    TaskStore.CreateTask(name, priority);
+    TaskStore.CreateTask(name, priority, deadline);
+    setDeadline(null);
     setName(undefined);
     setPriority(undefined);
+    console.log(TaskStore.tasks);
   };
 
   return (
@@ -43,6 +45,10 @@ export const CreateTask = observer(() => {
           }}
           name="task"
           placeholder="Напишите название задачи"
+        />
+        <CustomDatePicker
+          selectDate={deadline ? deadline : null}
+          callback={setDeadline as (e: Date | null) => void}
         />
         <Select
           id="SelectPriority"

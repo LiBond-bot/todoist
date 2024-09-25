@@ -1,4 +1,7 @@
-export const dateConversion = (date: Date) => {
+export const dateConversion = (
+  date: Date,
+  typeDate?: "full" | "time" | "date",
+) => {
   const createDate = new Date(date);
 
   let day;
@@ -20,7 +23,24 @@ export const dateConversion = (date: Date) => {
     ? (minutes = "0" + createDate.getMinutes())
     : (minutes = createDate.getMinutes());
 
-  const convert_date =
+  const convert_date_full =
     day + "." + month + "." + year + " " + hours + ":" + minutes;
-  return convert_date;
+  const convert_date_time = hours + ":" + minutes;
+  const convert_date = day + "." + month + "." + year;
+
+  if (typeDate) {
+    if (typeDate === "full") {
+      return convert_date_full;
+    }
+
+    if (typeDate === "time") {
+      return convert_date_time;
+    }
+
+    if (typeDate === "date") {
+      return convert_date;
+    }
+  } else {
+    return convert_date_full;
+  }
 };

@@ -64,6 +64,7 @@ class TaskStore {
     tasks_cards_quan: "3-cards",
   };
 
+  // Поиск
   private search_handelr = (tasks: TaskType[]) => {
     if (this.filter.search) {
       return tasks.filter((task) => task.name.indexOf(this.filter.search) >= 0);
@@ -85,7 +86,6 @@ class TaskStore {
 
   // Фильтрация по дате
   private filter_date = (tasks: TaskType[]) => {
-    console.log(tasks);
     if (!this.filter.filter.filterDate.type) return tasks;
 
     if (
@@ -105,6 +105,10 @@ class TaskStore {
 
           if (this.filter.filter.filterDate.type === "updated") {
             field = a.lastEditDate;
+          }
+
+          if (this.filter.filter.filterDate.type === "deadline") {
+            field = a.deadline;
           }
 
           if (field) {
@@ -128,6 +132,7 @@ class TaskStore {
     return tasks;
   };
 
+  // Сортировка
   private sort_handelr = (tasks: TaskType[]) => {
     if (!this.filter.sort.field) return tasks;
 
@@ -219,7 +224,11 @@ class TaskStore {
   }
 
   // Создание задачи
-  CreateTask = (name: TaskType["name"], priority: TaskType["priority"]) => {
+  CreateTask = (
+    name: TaskType["name"],
+    priority: TaskType["priority"],
+    deadline: TaskType["deadline"],
+  ) => {
     priority = Number(priority);
     const createDate = new Date();
     const task = {
@@ -228,6 +237,7 @@ class TaskStore {
       createDate: createDate,
       lastEditDate: undefined,
       finishedDate: undefined,
+      deadline: deadline,
       priority: priority,
       editor: false,
       checked: false,

@@ -5,6 +5,7 @@ export type TaskType = {
   createDate: Date;
   lastEditDate: Date | undefined;
   finishedDate: Date | undefined;
+  deadline: Date | null;
   priority: number;
   editor: boolean;
   checked: boolean;
@@ -15,7 +16,7 @@ export type TaskQuantityCards = "3-cards" | "4-cards" | "5-cards";
 // Sort and filters types
 export type FiledType = "none" | "priority" | "date";
 export type OrderType = "ASC" | "DESC";
-export type filterDateType = "created" | "updated" | false;
+export type filterDateType = "created" | "updated" | "deadline" | false;
 
 // Form types
 export type SelectType = {
