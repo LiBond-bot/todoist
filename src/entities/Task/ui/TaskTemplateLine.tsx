@@ -51,12 +51,12 @@ export const TaskTemplateLine: FC<{
   let finishedDateConvert;
   let lastEditDateConvert;
   let deadlineConvert;
-  const createDateConvert = dateConversion(createDate);
+  const createDateConvert = dateConversion(createDate, "date");
   if (finishDate) {
-    finishedDateConvert = dateConversion(finishDate);
+    finishedDateConvert = dateConversion(finishDate, "date");
   }
   if (lastEditDate) {
-    lastEditDateConvert = dateConversion(lastEditDate);
+    lastEditDateConvert = dateConversion(lastEditDate, "date");
   }
 
   if (deadline) {
@@ -98,7 +98,7 @@ export const TaskTemplateLine: FC<{
             />
             <div>
               <div className="mb-0 font-bold">
-                <input
+                {/* <input
                   type="text"
                   className={classNames(
                     "border-transparent bg-transparent p-0 text-lg focus:border-transparent focus:ring-0",
@@ -108,7 +108,13 @@ export const TaskTemplateLine: FC<{
                   )}
                   value={name}
                   onChange={TrackingValue}
-                />
+                /> */}
+                <div className="text-lg">{name}</div>
+                {deadline && (
+                  <div className="mt-2 rounded-md bg-red-600 px-2 py-0.5 text-xs text-white">
+                    Срок: {deadlineConvert}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -117,19 +123,14 @@ export const TaskTemplateLine: FC<{
               <div className="text-xs">
                 <b>Создана:</b> {createDateConvert}
               </div>
-              {lastEditDate && (
+              {/* {lastEditDate && (
                 <div className="text-xs">
                   <b>Изменена:</b> {lastEditDateConvert}
                 </div>
-              )}
+              )} */}
               {finishDate && (
                 <div className="text-xs">
                   <b>Завершена:</b> {finishedDateConvert}
-                </div>
-              )}
-              {deadline && (
-                <div className="text-xs">
-                  <b>Срок:</b> {deadlineConvert}
                 </div>
               )}
             </div>
