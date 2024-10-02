@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body::-webkit-scrollbar {
+  width: 12px; /* ширина scrollbar */
+}
+body::-webkit-scrollbar-track {
+  background: #eef2ff; /* цвет дорожки */
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #3730a3; /* цвет плашки */
+  border-radius: 20px; /* закругления плашки */
+}
+
+input::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #504d60;
+}
+input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #504d60;
+  opacity: 1;
+}
+input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #504d60;
+  opacity: 1;
+}
+input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #504d60;
+}
+input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #504d60;
+}
+
+input::placeholder {
+  color: #504d60;
+}
+
+select {
+  color: #504d60;
+}
+
+option {
+  color: #000;
+}

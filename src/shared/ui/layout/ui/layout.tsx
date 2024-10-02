@@ -1,13 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC } from "react";
 
-export const Layout:FC<{
-    children: React.ReactNode,
-}> = ({children}) => {
-    
-    return (
-        <div className='container mx-auto'>
-            {children}
-        </div>
-    );
-    
-}
+export const Layout: FC<{
+  children: React.ReactNode;
+}> = ({ children }) => {
+  return <div className="px-8 pb-8">{children}</div>;
+};

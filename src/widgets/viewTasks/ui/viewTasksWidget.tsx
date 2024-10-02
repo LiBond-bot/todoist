@@ -40,26 +40,26 @@ const Tasks: FC<{
   return (
     <>
       <div className="flex gap-8">
-        <div className="w-1/5">
+        <div className="sticky top-5 h-max w-1/5 px-6">
           <Title titleName="Фильтры" fontSize="text-2xl" />
 
-          <div className="mb-6 rounded-lg p-6 shadow-xl">
-            <div className="mb-5">
+          <div>
+            <div className="mb-8 rounded-lg p-6 shadow-xl">
               <Title titleName="По приоритету" fontSize="text-base" />
               <FilterPriority />
             </div>
 
-            <div className="mb-5">
+            <div className="mb-6">
               <Title titleName="По дате создания" fontSize="text-base" />
               <FilterDate typeDateFilter="created" />
             </div>
 
-            <div className="mb-5">
+            <div className="mb-6">
               <Title titleName="По дате изменения" fontSize="text-base" />
               <FilterDate typeDateFilter="updated" />
             </div>
 
-            <div className="mb-5">
+            <div className="mb-6">
               <Title titleName="По сроку завершения" fontSize="text-base" />
               <FilterDate typeDateFilter="deadline" />
             </div>

@@ -8,7 +8,7 @@ export const Button: FC<{
     <>
       <button
         onClick={onClick}
-        className="w-52 rounded-lg bg-indigo-800 px-4 py-4 leading-none text-white shadow-xl"
+        className="h-full w-52 w-full rounded-lg bg-indigo-800 px-4 py-4 leading-none text-white shadow-xl"
       >
         {name}
       </button>

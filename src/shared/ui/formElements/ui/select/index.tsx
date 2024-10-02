@@ -13,6 +13,7 @@ export const Select: FC<{
     "border-transparent",
     "cursor-pointer",
     "focus:border-transparent",
+    "w-full",
   );
 
   return (

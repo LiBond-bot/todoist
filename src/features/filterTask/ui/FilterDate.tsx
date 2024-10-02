@@ -34,17 +34,17 @@ export const FilterDate: FC<{
     <>
       <div className="flex gap-4">
         <div className="w-1/2">
-          <div className="mb-2 text-sm">Начало</div>
           <CustomDatePicker
             selectDate={startDate ? startDate : null}
             callback={handlerStartDate as (e: Date | null) => void}
+            placeholder="Начало"
           />
         </div>
         <div className="w-1/2">
-          <div className="mb-2 text-sm">Конец</div>
           <CustomDatePicker
             selectDate={endDate ? endDate : null}
             callback={handlerEndDate as (e: Date | null) => void}
+            placeholder="Конец"
           />
         </div>
       </div>
